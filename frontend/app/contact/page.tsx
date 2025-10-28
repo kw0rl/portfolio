@@ -72,7 +72,7 @@ export default function Contact() {
                   </div>
                   <div className="flex items-center space-x-4">
                     <div className="w-10 h-10 bg-orange-300/20 rounded-lg flex items-center justify-center">
-                      <span className="text-orange-300 text-xl">🏠︎</span>
+                      <span className="text-orange-300 text-xl">𖠿</span>
                     </div>
                     <div>
                       <div className="text-gray-400 text-sm">Location</div>
