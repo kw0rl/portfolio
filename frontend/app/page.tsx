@@ -89,7 +89,7 @@ export default function Home() {
               <img 
                 src="/memoji.png" 
                 alt="Azrul Memoji" 
-                className="w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 object-contain hover:scale-105 transition-transform duration-300"
+                className="w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 object-contain transition-transform duration-300"
               />
             </motion.div>
             
