@@ -10,7 +10,7 @@ export default function Navbar() {
   const navItems = [
     { href: '/', label: '𖠿', title: 'Home' },
     { href: '/about', label: 'ⓘ', title: 'About' },
-    { href: '/works', label: '🛠', title: 'Works' },
+    { href: '/works', label: '</>', title: 'Works' },
     { href: '/services', label: '⌨', title: 'Services' },
     { href: '/contact', label: '⌯⌲', title: 'Contact' },
   ];
