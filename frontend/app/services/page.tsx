@@ -34,7 +34,7 @@ export default function Services() {
         <div className="max-w-6xl w-full">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent">
-              Our Services
+              My Services
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Comprehensive technology solutions tailored to meet your business needs and drive digital transformation.
