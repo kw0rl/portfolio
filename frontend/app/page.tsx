@@ -56,7 +56,7 @@ export default function Home() {
                 href="/works"
                 className="block px-8 py-4 text-white font-semibold text-center"
               >
-                View My Work →
+                View My Work ➜
               </a>
             </GlareHover>
           </div>
