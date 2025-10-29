@@ -10,6 +10,14 @@ export default function Works() {
       technologies: ['React', 'Node.js', 'MySQL', 'Google Cloud Vision API'],
       demoUrl: 'https://sonicmoodsfrontend-58m9x.ondigitalocean.app/',
       image: '/musicrecommender.png'
+    },
+
+    {
+      title: 'Movie Recommender',
+      description: 'A full-stack movie recommendation system that suggests movies based on user preferences.',
+      technologies: ['React', 'Node.js', 'MySQL', 'TMDB API'],
+      demoUrl: 'https://wishlist-yfhka.ondigitalocean.app/',
+      image: '/movierecommender.png'
     }
   ];
 
