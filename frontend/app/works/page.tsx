@@ -16,7 +16,7 @@ export default function Works() {
       title: 'Movie Recommender',
       description: 'A full-stack movie recommendation system that suggests movies based on user preferences.',
       technologies: ['React', 'Node.js', 'MySQL', 'TMDB API'],
-      demoUrl: 'https://wishlist-yfhka.ondigitalocean.app/',
+      demoUrl: 'https://filmpilot.onrender.com/',
       image: '/movierecommender.jpeg'
     }
   ];
