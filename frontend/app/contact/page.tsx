@@ -1,15 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 
 export default function Contact() {
+  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,18 +55,18 @@ export default function Contact() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent">
               Let's Connect
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Stay in touch! Whether you have a question, a project idea, or just want to say hello, I'm here to listen and collaborate.
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.8s ease-out 0.2s both' }}>
+              I'd love to hear from you! Whether you have feedback, questions, or just want to connect, feel free to reach out.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20">
+            <div className="space-y-8" style={{ animation: 'fadeInLeft 0.8s ease-out 0.4s both' }}>
+              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10">
                 <h3 className="text-xl font-bold mb-6 text-pink-300">Contact Information</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-4 transition-transform duration-200">
                     <div className="w-10 h-10 bg-pink-300/20 rounded-lg flex items-center justify-center">
                       <span className="text-pink-300 text-xl">✉</span>
                     </div>
@@ -70,7 +75,7 @@ export default function Contact() {
                       <div className="text-white">quwots@gmail.com</div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-4 transition-transform duration-200">
                     <div className="w-10 h-10 bg-orange-300/20 rounded-lg flex items-center justify-center">
                       <span className="text-orange-300 text-xl">𖠿</span>
                     </div>
@@ -82,7 +87,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20">
+              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10">
                 <h3 className="text-xl font-bold mb-6 text-pink-300">Connect With Me</h3>
                 <div className="grid grid-cols-2 gap-3 max-w-32 mx-auto">
                   {/* LinkedIn - Blue */}
@@ -106,10 +111,10 @@ export default function Contact() {
             </div>
 
             {/* Contact Form */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-pink-300/20">
+            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300" style={{ animation: 'fadeInRight 0.8s ease-out 0.4s both' }}>
               <h3 className="text-2xl font-bold mb-6 text-pink-300">Leave Me a Message!!</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
+                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.6s both' }}>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                     Name (optional)
                   </label>
@@ -122,7 +127,7 @@ export default function Contact() {
                     placeholder="Your name"
                   />
                 </div>
-                <div>
+                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.7s both' }}>
                   <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
                     Message
                   </label>
@@ -136,13 +141,15 @@ export default function Contact() {
                     required
                   />
                 </div>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-pink-300 to-orange-300 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-pink-300/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Sending...' : 'Submit'}
-                </button>
+                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.8s both' }}>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 bg-gradient-to-r from-pink-300 to-orange-300 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-pink-300/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Submit'}
+                  </button>
+                </div>
                 {submitStatus === 'success' && (
                   <p className="text-green-400 text-center">Thank you! Your message has been sent successfully.</p>
                 )}
@@ -154,6 +161,50 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 }
