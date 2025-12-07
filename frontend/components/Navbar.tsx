@@ -35,18 +35,17 @@ export default function Navbar() {
                 textColors={['#ffffff', '#b88990', '#9b73a5']}
               />
             </Link>
-            
+
             {/* Navigation Links */}
             <div className="flex items-center space-x-6">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    pathname === item.href
-                      ? 'bg-white/20 text-white shadow-lg'
-                      : 'text-white/70 hover:text-white hover:bg-white/10'
-                  }`}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${pathname === item.href
+                    ? 'bg-white/20 text-white shadow-lg'
+                    : 'text-white/70 hover:text-white hover:bg-white/10'
+                    }`}
                   title={item.title}
                 >
                   {item.label}
@@ -65,11 +64,10 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-2 rounded-full text-lg transition-all duration-300 ${
-                  pathname === item.href
-                    ? 'bg-white/20 shadow-lg'
-                    : 'hover:bg-white/10'
-                }`}
+                className={`px-3 py-2 rounded-full text-lg transition-all duration-300 ${pathname === item.href
+                  ? 'bg-white/20 shadow-lg'
+                  : 'hover:bg-white/10'
+                  }`}
                 title={item.title}
               >
                 {item.label}
