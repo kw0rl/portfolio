@@ -10,91 +10,79 @@ interface IntroPageProps {
 
 const IntroPage = ({ onComplete }: IntroPageProps) => {
   const [showHello, setShowHello] = useState(true);
-  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleAnimationComplete = () => {
-    // Wait a bit after animation completes, then start transition
     setTimeout(() => {
-      setIsTransitioning(true);
       setShowHello(false);
-      
-      // After fade out completes, call onComplete
+
       setTimeout(() => {
         onComplete();
-      }, 1000); // Wait for fade out animation
-    }, 1500); // Wait 1.5 seconds after hello animation
+      }, 900);
+    }, 1200);
   };
 
   return (
     <AnimatePresence mode="wait">
       {showHello && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[#f7faf6]"
           initial={{ opacity: 1 }}
-          exit={{ 
+          exit={{
             opacity: 0,
-            scale: 0.95,
-            filter: "blur(10px)"
+            scale: 0.98,
+            filter: 'blur(10px)',
           }}
-          transition={{ 
-            duration: 1,
-            ease: "easeInOut"
+          transition={{
+            duration: 0.9,
+            ease: 'easeInOut',
           }}
         >
-          {/* Background gradient */}
-          <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-pink-900/20 via-purple-900/30 to-orange-900/20"
-            exit={{ 
+          <motion.div
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(143,201,164,0.42),transparent_32rem)]"
+            exit={{
               opacity: 0,
-              scale: 1.1
+              scale: 1.06,
             }}
-            transition={{ 
-              duration: 1.2,
-              ease: "easeInOut"
+            transition={{
+              duration: 1,
+              ease: 'easeInOut',
             }}
           />
-          
-          {/* Hello animation */}
-          <div className="relative z-10 flex flex-col items-center">
+
+          <div className="relative z-10 flex flex-col items-center px-6 text-center">
             <motion.div
               exit={{
-                y: -50,
+                y: -36,
                 opacity: 0,
-                scale: 0.8
+                scale: 0.9,
               }}
               transition={{
-                duration: 0.8,
-                ease: "easeInOut"
+                duration: 0.7,
+                ease: 'easeInOut',
               }}
             >
               <AppleHelloEffect
-                className="h-24 md:h-32 lg:h-40 text-white mb-8"
+                className="mb-8 h-24 text-[#1f5139] md:h-32 lg:h-40"
                 speed={1.2}
                 onAnimationComplete={handleAnimationComplete}
               />
             </motion.div>
-            
-            {/* Optional: Add your name or subtitle */}
+
             <motion.div
-              className="text-center"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{
-                y: 50,
+                y: 36,
                 opacity: 0,
-                scale: 0.8
+                scale: 0.92,
               }}
-              transition={{ 
-                delay: 2.5, 
-                duration: 1
+              transition={{
+                delay: 2.3,
+                duration: 0.8,
               }}
             >
-              <h2 className="text-xl md:text-2xl text-gray-300 font-light">
-                I'm Azrul
-              </h2>
-              <p className="text-sm md:text-base text-gray-400 mt-2">
-                Welcome to my portfolio
-              </p>
+              <h2 className="text-xl font-bold text-[#17211b] md:text-2xl">I&apos;m Azrul</h2>
+              <p className="mt-2 text-sm font-medium text-slate-500 md:text-base">Welcome to my portfolio</p>
             </motion.div>
           </div>
         </motion.div>

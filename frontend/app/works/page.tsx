@@ -1,105 +1,86 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import Navbar from '../../components/Navbar';
 
 export default function Works() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   const projects = [
     {
-      title: 'Movie Recommender',
-      description: 'A full-stack movie recommendation system that suggests movies based on user preferences.',
-      technologies: ['React', 'Node.js', 'PostgreSQL', 'TMDB API'],
-      demoUrl: 'https://filmpilot.onrender.com/',
-      image: '/movierecommender.jpeg'
-    }
+      title: 'Ranaco Programmes Webpage',
+      description:
+        'A responsive landing page developed for Ranaco Education & Training Institute to showcase training programmes, course details, and enrollment information in a clear layout.',
+      technologies: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+      demoUrl: 'https://ranacolandingpage.reti.edu.my/',
+      image: '/ranaco-2.png',
+    },
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-pink-900/20 via-purple-900/30 to-orange-900/20 text-white overflow-hidden">
-      {/* Navigation */}
+    <div className="portfolio-page">
       <Navbar />
 
-      {/* Works Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 py-6 md:py-20 md:pt-32 pb-24 md:pb-20">
-        <div className="max-w-6xl w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-400 bg-clip-text text-transparent">
-              My Works
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.8s ease-out 0.2s both' }}>
-              A collection of projects I've built while learning web development and exploring new technologies.
+      <main className="page-shell">
+        <section>
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="section-kicker">Selected work</div>
+            <h1 className="section-title">Projects with clear structure and useful interfaces.</h1>
+            <p className="section-copy mt-6">
+              A focused collection of work I have built while learning modern web development and improving my frontend process.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, index) => (
-              <div 
-                key={index} 
-                className="bg-black/40 backdrop-blur-sm rounded-2xl overflow-hidden border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300 hover:transform hover:scale-105 hover:shadow-xl hover:shadow-pink-500/20 group"
-                style={{ animation: `fadeInUp 0.6s ease-out ${0.4 + index * 0.2}s both` }}
+              <article
+                key={project.title}
+                className="surface-card group overflow-hidden transition duration-200 hover:-translate-y-1"
+                style={{ animation: `fadeInUp 0.55s ease-out ${0.12 + index * 0.12}s both` }}
               >
-                <div className="h-48 bg-gradient-to-br from-pink-300/20 to-purple-400/20 flex items-center justify-center overflow-hidden relative">
-                  <img 
-                    src={project.image} 
+                <div className="aspect-[16/10] overflow-hidden bg-[#e6f2ea]">
+                  <Image
+                    src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    onError={(e) => {
-                      // Fallback to rocket emoji if image fails to load
-                      const img = e.currentTarget as HTMLImageElement;
-                      img.style.display = 'none';
-                      const next = img.nextElementSibling as HTMLElement | null;
-                      if (next) next.style.setProperty('display', 'flex');
-                    }}
+                    width={720}
+                    height={450}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
-                  <div className="text-4xl hidden">🚀</div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-3 text-pink-300">{project.title}</h3>
-                  <p className="text-gray-300 mb-4 text-sm leading-relaxed">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="px-2 py-1 bg-purple-400/20 rounded text-xs text-purple-300 border border-purple-400/30">
+                  <h2 className="text-xl font-black text-[#17211b]">{project.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{project.description}</p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span key={tech} className="tag-pill text-xs">
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <button 
+
+                  <button
                     onClick={() => window.open(project.demoUrl, '_blank')}
-                    className="w-full py-3 bg-gradient-to-r from-pink-300 to-purple-400 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-pink-300/25 transition-all duration-300"
+                    className="soft-button mt-6 w-full"
                   >
-                    Live Demo
+                    Live demo
+                    <ExternalLink className="h-4 w-4" />
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(22px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
           }
         }
       `}</style>

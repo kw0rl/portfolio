@@ -1,20 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { Github, Linkedin, Mail, MapPin, Send } from 'lucide-react';
 import Navbar from '../../components/Navbar';
 
 export default function Contact() {
-  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
-    message: ''
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,7 +32,7 @@ export default function Contact() {
       } else {
         setSubmitStatus('error');
       }
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -44,78 +40,70 @@ export default function Contact() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-pink-900/20 via-purple-900/30 to-orange-900/20 text-white overflow-hidden">
-      {/* Navigation */}
+    <div className="portfolio-page">
       <Navbar />
 
-      {/* Contact Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 py-6 md:py-20 md:pt-32 pb-24 md:pb-20">
-        <div className="max-w-6xl w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent">
-              Let's Connect
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto" style={{ animation: 'fadeIn 0.8s ease-out 0.2s both' }}>
-              I'd love to hear from you! Whether you have feedback, questions, or just want to connect, feel free to reach out.
+      <main className="page-shell">
+        <section>
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="section-kicker">Contact</div>
+            <h1 className="section-title">Let&apos;s build the next conversation.</h1>
+            <p className="section-copy mt-6">
+              I would love to hear from you. Send a message for feedback, collaboration, internship opportunities, or a simple hello.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
-            {/* Contact Information */}
-            <div className="space-y-8" style={{ animation: 'fadeInLeft 0.8s ease-out 0.4s both' }}>
-              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10">
-                <h3 className="text-xl font-bold mb-6 text-pink-300">Contact Information</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4 transition-transform duration-200">
-                    <div className="w-10 h-10 bg-pink-300/20 rounded-lg flex items-center justify-center">
-                      <span className="text-pink-300 text-xl">✉</span>
-                    </div>
-                    <div>
-                      <div className="text-gray-400 text-sm">Email</div>
-                      <div className="text-white">quwots@gmail.com</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4 transition-transform duration-200">
-                    <div className="w-10 h-10 bg-orange-300/20 rounded-lg flex items-center justify-center">
-                      <span className="text-orange-300 text-xl">𖠿</span>
-                    </div>
-                    <div>
-                      <div className="text-gray-400 text-sm">Location</div>
-                      <div className="text-white">Terengganu, Malaysia</div>
-                    </div>
+          <div className="mt-14 grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
+            <div className="space-y-6">
+              <div className="surface-card p-7">
+                <h2 className="text-2xl font-black text-[#17211b]">Contact Information</h2>
+                <div className="mt-6 space-y-5">
+                  <a href="mailto:quwots@gmail.com" className="flex items-center gap-4 rounded-lg bg-[#f3f8f4] p-4 transition hover:bg-[#eaf4ee]">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#2f7a52]">
+                      <Mail className="h-5 w-5" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-bold text-slate-500">Email</span>
+                      <span className="font-bold text-[#17211b]">quwots@gmail.com</span>
+                    </span>
+                  </a>
+                  <div className="flex items-center gap-4 rounded-lg bg-[#f3f8f4] p-4">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-white text-[#2f7a52]">
+                      <MapPin className="h-5 w-5" />
+                    </span>
+                    <span>
+                      <span className="block text-sm font-bold text-slate-500">Location</span>
+                      <span className="font-bold text-[#17211b]">Terengganu, Malaysia</span>
+                    </span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-6 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10">
-                <h3 className="text-xl font-bold mb-6 text-pink-300">Connect With Me</h3>
-                <div className="grid grid-cols-2 gap-3 max-w-32 mx-auto">
-                  {/* LinkedIn - Blue */}
-                  <a href="https://www.linkedin.com/in/azrul-mustaqqim-55b1a7380/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-white rounded-lg flex items-center justify-center hover:bg-[#0077B5] hover:scale-110 transition-all duration-300 group">
-                    <img src="/socialmediasicon/104493_linkedin_icon.png" alt="LinkedIn" className="w-8 h-8 group-hover:brightness-0 group-hover:invert transition-all duration-300" />
+              <div className="surface-card p-7">
+                <h2 className="text-2xl font-black text-[#17211b]">Connect With Me</h2>
+                <div className="mt-6 grid grid-cols-2 gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/azrul-mustaqqim-55b1a7380/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ghost-button"
+                  >
+                    <Linkedin className="h-4 w-4" />
+                    LinkedIn
                   </a>
-                  {/* GitHub - Dark/Black */}
-                  <a href="https://github.com/kw0rl" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-white rounded-lg flex items-center justify-center hover:bg-[#24292e] hover:scale-110 transition-all duration-300 group">
-                    <img src="/socialmediasicon/4747499_github_icon.png" alt="GitHub" className="w-8 h-8 group-hover:brightness-0 group-hover:invert transition-all duration-300" />
-                  </a>
-                  {/* Instagram - Gradient Pink/Purple/Orange */}
-                  <a href="https://www.instagram.com/azrulism?igsh=Mzg0eWlqNXRyZ2Z4" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-white rounded-lg flex items-center justify-center hover:bg-gradient-to-br hover:from-[#E4405F] hover:via-[#C13584] hover:to-[#F56040] hover:scale-110 transition-all duration-300 group">
-                    <img src="/socialmediasicon/1161953_instagram_icon.png" alt="Instagram" className="w-8 h-8 group-hover:brightness-0 group-hover:invert transition-all duration-300" />
-                  </a>
-                  {/* Facebook - Blue */}
-                  <a href="https://www.facebook.com/share/17GHTKkeLW/" target="_blank" rel="noopener noreferrer" className="w-14 h-14 bg-white rounded-lg flex items-center justify-center hover:bg-[#1877F2] hover:scale-110 transition-all duration-300 group">
-                    <img src="/socialmediasicon/4747497_social media_facebook_icon.png" alt="Facebook" className="w-8 h-8 group-hover:brightness-0 group-hover:invert transition-all duration-300" />
+                  <a href="https://github.com/kw0rl" target="_blank" rel="noopener noreferrer" className="ghost-button">
+                    <Github className="h-4 w-4" />
+                    GitHub
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Contact Form */}
-            <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-pink-300/20 hover:border-pink-300/40 transition-all duration-300" style={{ animation: 'fadeInRight 0.8s ease-out 0.4s both' }}>
-              <h3 className="text-2xl font-bold mb-6 text-pink-300">Leave Me a Message!!</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.6s both' }}>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+            <div className="surface-card p-7 lg:p-8">
+              <h2 className="text-2xl font-black text-[#17211b]">Leave Me a Message</h2>
+              <form onSubmit={handleSubmit} className="mt-6 space-y-5">
+                <div>
+                  <label htmlFor="name" className="mb-2 block text-sm font-bold text-slate-600">
                     Name (optional)
                   </label>
                   <input
@@ -123,88 +111,43 @@ export default function Contact() {
                     id="name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/60 border border-pink-300/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-pink-300 focus:ring-1 focus:ring-pink-300"
+                    className="w-full rounded-lg border border-emerald-900/10 bg-white px-4 py-3 text-[#17211b] placeholder:text-slate-400 focus:border-[#8fc9a4] focus:outline-none focus:ring-4 focus:ring-[#8fc9a4]/20"
                     placeholder="Your name"
                   />
                 </div>
-                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.7s both' }}>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                <div>
+                  <label htmlFor="message" className="mb-2 block text-sm font-bold text-slate-600">
                     Message
                   </label>
                   <textarea
                     id="message"
-                    rows={6}
+                    rows={7}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/60 border border-pink-300/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-pink-300 focus:ring-1 focus:ring-pink-300 resize-none"
-                    placeholder="Share your thoughts, feedback, or words of encouragement..."
+                    className="w-full resize-none rounded-lg border border-emerald-900/10 bg-white px-4 py-3 text-[#17211b] placeholder:text-slate-400 focus:border-[#8fc9a4] focus:outline-none focus:ring-4 focus:ring-[#8fc9a4]/20"
+                    placeholder="Share your thoughts, feedback, or collaboration idea..."
                     required
                   />
                 </div>
-                <div style={{ animation: 'fadeInUp 0.5s ease-out 0.8s both' }}>
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 bg-gradient-to-r from-pink-300 to-orange-300 rounded-lg text-white font-semibold hover:shadow-lg hover:shadow-pink-300/25 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Submit'}
-                  </button>
-                </div>
+                <button type="submit" disabled={isSubmitting} className="soft-button w-full disabled:cursor-not-allowed disabled:opacity-60">
+                  {isSubmitting ? 'Sending...' : 'Submit'}
+                  <Send className="h-4 w-4" />
+                </button>
                 {submitStatus === 'success' && (
-                  <p className="text-green-400 text-center">Thank you! Your message has been sent successfully.</p>
+                  <p className="rounded-lg bg-[#eaf7ed] px-4 py-3 text-center font-semibold text-[#2f7a52]">
+                    Thank you. Your message has been sent successfully.
+                  </p>
                 )}
                 {submitStatus === 'error' && (
-                  <p className="text-red-400 text-center">Something went wrong. Please try again. ☹</p>
+                  <p className="rounded-lg bg-red-50 px-4 py-3 text-center font-semibold text-red-600">
+                    Something went wrong. Please try again.
+                  </p>
                 )}
               </form>
             </div>
           </div>
-        </div>
-      </section>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-      `}</style>
+        </section>
+      </main>
     </div>
   );
 }

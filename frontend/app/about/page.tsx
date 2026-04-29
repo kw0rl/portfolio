@@ -1,17 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { Award, Code2, Rocket, Users } from 'lucide-react';
 import Navbar from '../../components/Navbar';
-import { Code2, Rocket, Users, Award } from 'lucide-react';
 
 export default function About() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [hoveredStat, setHoveredStat] = useState<number | null>(null);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   const skills = [
     { name: 'React', level: 65 },
     { name: 'Next.js', level: 60 },
@@ -20,173 +12,94 @@ export default function About() {
     { name: 'PHP', level: 50 },
     { name: 'React Native', level: 45 },
     { name: 'MySQL', level: 65 },
-    { name: 'PostgreSQL', level: 50 }
+    { name: 'PostgreSQL', level: 50 },
   ];
 
   const stats = [
-    { icon: Code2, label: 'Projects Built', value: '10+', color: 'from-pink-400 to-rose-400' },
-    { icon: Rocket, label: 'Learning Journey', value: '1+ Yr', color: 'from-purple-400 to-pink-400' },
-    { icon: Users, label: 'Code Commits', value: '200+', color: 'from-orange-400 to-pink-400' },
-    { icon: Award, label: 'Technologies', value: '8+', color: 'from-yellow-400 to-orange-400' }
+    { icon: Code2, label: 'Projects Built', value: '5+' },
+    { icon: Rocket, label: 'Learning Journey', value: '1+ Yr' },
+    { icon: Users, label: 'Line of Code Commits', value: '200+' },
+    { icon: Award, label: 'Technologies', value: '8+' },
   ];
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-pink-900/20 via-purple-900/30 to-orange-900/20 text-white overflow-hidden">
-      {/* Navigation */}
+    <div className="portfolio-page">
       <Navbar />
 
-      {/* About Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 py-6 md:py-20 md:pt-32 pb-24 md:pb-20">
-        <div className="max-w-6xl w-full">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent">
-              About Me
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Aspiring developer on an exciting learning journey, eager to build innovative solutions and grow my skills in creating exceptional user experiences.
+      <main className="page-shell">
+        <section>
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="section-kicker">About me</div>
+            <h1 className="section-title">A growing developer with a product mindset.</h1>
+            <p className="section-copy mt-6">
+              I enjoy turning ideas into clear, usable interfaces. My current focus is building stronger frontend foundations while improving the way I think about user experience and system structure.
             </p>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+          <div className="mt-14 grid grid-cols-2 gap-4 md:grid-cols-4">
             {stats.map((stat, index) => {
               const Icon = stat.icon;
+
               return (
                 <div
-                  key={index}
-                  className="relative group cursor-pointer"
-                  onMouseEnter={() => setHoveredStat(index)}
-                  onMouseLeave={() => setHoveredStat(null)}
-                  style={{
-                    animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`
-                  }}
+                  key={stat.label}
+                  className="surface-card p-5 transition duration-200 hover:-translate-y-1"
+                  style={{ animation: `fadeInUp 0.55s ease-out ${index * 0.08}s both` }}
                 >
-                  <div className="bg-black/40 backdrop-blur-sm rounded-xl p-6 border border-pink-300/20 transition-all duration-300 hover:scale-105 hover:border-pink-300/40 hover:shadow-lg hover:shadow-pink-500/20">
-                    <div className={`inline-flex p-3 rounded-lg bg-gradient-to-br ${stat.color} mb-3 transition-transform duration-300 ${hoveredStat === index ? 'scale-110 rotate-6' : ''}`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
-                    <div className="text-sm text-gray-400">{stat.label}</div>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#e2f2e8] text-[#2f7a52]">
+                    <Icon className="h-6 w-6" />
                   </div>
+                  <div className="text-3xl font-black text-[#17211b]">{stat.value}</div>
+                  <div className="mt-1 text-sm font-semibold text-slate-500">{stat.label}</div>
                 </div>
               );
             })}
           </div>
 
-          <div className="relative bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-pink-300/20 mb-12 overflow-hidden group hover:border-pink-300/40 transition-all duration-300">
-            {/* Animated gradient border effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/0 via-pink-500/10 to-pink-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            <div className="grid md:grid-cols-2 gap-12 relative z-10">
-              <div className="space-y-4" style={{ animation: 'fadeInLeft 0.8s ease-out' }}>
-                <h3 className="text-2xl font-bold mb-6 text-pink-300 flex items-center gap-2">
-                  <span className="inline-block w-1 h-8 bg-gradient-to-b from-pink-400 to-orange-400 rounded-full"></span>
-                  Get To Know Me
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  I'm Azrul, an enthusiastic developer currently on my internship journey! I'm passionate about learning and bringing ideas to life through creative digital experiences. I love exploring new technologies and building projects that combine clean code with great design. Every day is an opportunity to grow and improve my skills in web and mobile development.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-4">
-                  {['Creative', 'Fast Learner', 'Team Player', 'Problem Solver'].map((trait, i) => (
-                    <span
-                      key={i}
-                      className="px-4 py-2 bg-gradient-to-r from-pink-500/20 to-orange-500/20 border border-pink-300/30 rounded-full text-sm text-pink-200 hover:scale-105 transition-transform duration-200 cursor-default"
-                      style={{ animation: `fadeIn 0.5s ease-out ${0.8 + i * 0.1}s both` }}
-                    >
-                      {trait}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div style={{ animation: 'fadeInRight 0.8s ease-out' }}>
-                <h3 className="text-2xl font-bold mb-6 text-pink-300 flex items-center gap-2">
-                  <span className="inline-block w-1 h-8 bg-gradient-to-b from-pink-400 to-orange-400 rounded-full"></span>
-                  Technical Skills
-                </h3>
-                <div className="space-y-4">
-                  {skills.map((skill, index) => (
-                    <div
-                      key={index}
-                      className="group"
-                      style={{
-                        animation: `fadeInUp 0.5s ease-out ${0.8 + index * 0.1}s both`
-                      }}
-                    >
-                      <div className="flex justify-between mb-2">
-                        <span className="text-gray-300 group-hover:text-pink-300 transition-colors duration-200">{skill.name}</span>
-                        <span className="text-pink-300 font-semibold">{skill.level}%</span>
-                      </div>
-                      <div className="w-full bg-gray-700/50 rounded-full h-2.5 overflow-hidden">
-                        <div 
-                          className="bg-gradient-to-r from-pink-400 via-purple-400 to-orange-400 h-2.5 rounded-full transition-all duration-1000 ease-out relative"
-                          style={{ width: isVisible ? `${skill.level}%` : '0%' }}
-                        >
-                          <div className="absolute inset-0 bg-white/20 animate-shimmer"></div>
-                        </div>
-                      </div>
+          <div className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="surface-card p-8">
+              <h2 className="text-2xl font-black text-[#17211b]">How I Work</h2>
+              <ul className="mt-4 flex flex-col gap-4 text-slate-600">
+                <li><strong className="font-bold text-[#17211b]">Understand the problem</strong> &ndash; I start by breaking down what actually needs to be solved, not just what is requested.</li>
+                <li><strong className="font-bold text-[#17211b]">Design with intention</strong> &ndash; I think about usability and flow before jumping into code.</li>
+                <li><strong className="font-bold text-[#17211b]">Build iteratively</strong> &ndash; I prefer small, testable progress over big, messy builds.</li>
+                <li><strong className="font-bold text-[#17211b]">Refine details</strong> &ndash; I focus on polish, responsiveness, and user experience at the end stage.</li>
+              </ul>
+            </div>
+
+            <div className="surface-card p-8">
+              <h2 className="text-2xl font-black text-[#17211b]">Technical Skills</h2>
+              <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                {skills.map((skill, index) => (
+                  <div key={skill.name} style={{ animation: `fadeInUp 0.5s ease-out ${0.15 + index * 0.06}s both` }}>
+                    <div className="mb-2 flex justify-between text-sm font-bold">
+                      <span className="text-slate-700">{skill.name}</span>
+                      <span className="text-[#2f7a52]">{skill.level}%</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="h-2.5 overflow-hidden rounded-full bg-[#e4ece6]">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-[#8fc9a4] to-[#2f7a52] transition-all duration-1000 ease-out"
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <style jsx>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(22px);
           }
           to {
             opacity: 1;
             transform: translateY(0);
           }
-        }
-
-        @keyframes fadeInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeInRight {
-          from {
-            opacity: 0;
-            transform: translateX(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
-
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
         }
       `}</style>
     </div>

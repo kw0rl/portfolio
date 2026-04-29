@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ArrowRight, CheckCircle2, Layers3, MessageCircle } from 'lucide-react';
+import Image from 'next/image';
 import Navbar from '../components/Navbar';
-import GlareHover from '../components/GlareHover';
 import IntroPage from '../components/IntroPage';
 
 export default function Home() {
@@ -14,180 +15,132 @@ export default function Home() {
     const hasVisited = sessionStorage.getItem('hasVisitedHomepage');
 
     if (hasVisited) {
-      // Dah pernah visit - skip intro
-      setIsFirstVisit(false);
-      setShowIntro(false);
+      setTimeout(() => {
+        setIsFirstVisit(false);
+        setShowIntro(false);
+      }, 0);
     } else {
-      // First time visit - show intro
-      setIsFirstVisit(true);
       sessionStorage.setItem('hasVisitedHomepage', 'true');
     }
   }, []);
 
-  const handleIntroComplete = () => {
-    setShowIntro(false);
-  };
-
-  // If showing intro, return only intro
   if (isFirstVisit && showIntro) {
-    return <IntroPage onComplete={handleIntroComplete} />;
+    return <IntroPage onComplete={() => setShowIntro(false)} />;
   }
 
-  // Original homepage content
+  const specialties = ['Web Developer', 'Mobile App Developer', 'AI Specialist'];
+
   return (
     <motion.div
-      className="relative min-h-screen bg-gradient-to-br from-pink-900/20 via-purple-900/30 to-orange-900/20 text-white overflow-hidden"
-      initial={isFirstVisit ? { 
-        opacity: 0,
-        scale: 1.05,
-        filter: "blur(20px)"
-      } : { opacity: 0 }}
-      animate={isFirstVisit ? { 
-        opacity: 1,
-        scale: 1,
-        filter: "blur(0px)"
-      } : { opacity: 1 }}
-      transition={isFirstVisit ? { 
-        duration: 1.5,
-        ease: "easeOut",
-        delay: 0.2
-      } : { duration: 0.5, ease: "easeOut" }}
+      className="portfolio-page"
+      initial={isFirstVisit ? { opacity: 0, scale: 1.02, filter: 'blur(14px)' } : { opacity: 0 }}
+      animate={isFirstVisit ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : { opacity: 1 }}
+      transition={isFirstVisit ? { duration: 1.1, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
     >
-      {/* Navigation */}
-      <motion.div
-        initial={isFirstVisit ? { y: -50, opacity: 0 } : { opacity: 0 }}
-        animate={isFirstVisit ? { y: 0, opacity: 1 } : { opacity: 1 }}
-        transition={isFirstVisit ? { duration: 0.8, delay: 0.8 } : { duration: 0.4, delay: 0.1 }}
-      >
-        <Navbar />
-      </motion.div>
+      <Navbar />
 
-      {/* Home Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-6 md:pt-20 pb-24 md:pb-6">
-        <motion.div 
-          className="text-center max-w-4xl"
-          initial={isFirstVisit ? { y: 50, opacity: 0 } : { y: 20, opacity: 0 }}
-          animate={isFirstVisit ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-          transition={isFirstVisit ? { duration: 1, delay: 1.2 } : { duration: 0.6, delay: 0.2 }}
-        >
-          <motion.div 
-            className="bg-black/40 backdrop-blur-sm rounded-2xl p-8 border border-pink-300/20"
-            initial={isFirstVisit ? { scale: 0.9, opacity: 0 } : { opacity: 0 }}
-            animate={isFirstVisit ? { scale: 1, opacity: 1 } : { opacity: 1 }}
-            transition={isFirstVisit ? { duration: 0.8, delay: 1.5 } : { duration: 0.5, delay: 0.3 }}
+      <main className="page-shell">
+        <section className="grid min-h-[calc(100vh-180px)] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <motion.div
+            initial={{ y: 28, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            {/* Memoji Image */}
-            <motion.div 
-              className="mb-8 flex justify-center"
-              initial={isFirstVisit ? { scale: 0, opacity: 0, rotate: -180 } : { scale: 0.8, opacity: 0 }}
-              animate={isFirstVisit ? { scale: 1, opacity: 1, rotate: 0 } : { scale: 1, opacity: 1 }}
-              transition={isFirstVisit ? { 
-                duration: 0.8, 
-                delay: 1.8,
-                type: "spring",
-                stiffness: 100
-              } : { duration: 0.5, delay: 0.4, ease: "easeOut" }}
-            >
-              <img 
-                src="/memoji.png" 
-                alt="Azrul Memoji" 
-                className="w-32 h-32 md:w-44 md:h-44 lg:w-56 lg:h-56 object-contain transition-transform duration-300"
-              />
-            </motion.div>
-            
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-pink-300 to-orange-300 bg-clip-text text-transparent"
-              initial={isFirstVisit ? { y: 30, opacity: 0 } : { y: 15, opacity: 0 }}
-              animate={isFirstVisit ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-              transition={isFirstVisit ? { duration: 0.8, delay: 2.1 } : { duration: 0.5, delay: 0.5, ease: "easeOut" }}
-            >
-              Hello, I'm Azrul
-            </motion.h1>
-            
-            <motion.p 
-              className="text-xl md:text-2xl mb-8 text-gray-300"
-              initial={isFirstVisit ? { y: 20, opacity: 0 } : { y: 10, opacity: 0 }}
-              animate={isFirstVisit ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-              transition={isFirstVisit ? { duration: 0.8, delay: 2.4 } : { duration: 0.5, delay: 0.6, ease: "easeOut" }}
-            >
-              Blending creativity and technology to bring digital experiences to life.
-            </motion.p>
-            
-            <motion.div 
-              className="flex flex-wrap justify-center gap-4 mb-8"
-              initial={isFirstVisit ? { y: 20, opacity: 0 } : { y: 10, opacity: 0 }}
-              animate={isFirstVisit ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-              transition={isFirstVisit ? { duration: 0.8, delay: 2.7 } : { duration: 0.5, delay: 0.7, ease: "easeOut" }}
-            >
-              <motion.span 
-                className="px-4 py-2 bg-pink-300/20 rounded-full border border-pink-300/30 text-pink-300"
-                initial={isFirstVisit ? { scale: 0, opacity: 0, rotate: -10 } : { scale: 0.9, opacity: 0 }}
-                animate={isFirstVisit ? { scale: 1, opacity: 1, rotate: 0 } : { scale: 1, opacity: 1 }}
-                transition={isFirstVisit ? { 
-                  duration: 0.6, 
-                  delay: 2.8,
-                  type: "spring",
-                  stiffness: 150
-                } : { duration: 0.4, delay: 0.8, ease: "easeOut" }}
-              >
-                💻 Web Developer
-              </motion.span>
-              <motion.span 
-                className="px-4 py-2 bg-purple-400/20 rounded-full border border-purple-400/30 text-purple-300"
-                initial={isFirstVisit ? { scale: 0, opacity: 0, rotate: 10 } : { scale: 0.9, opacity: 0 }}
-                animate={isFirstVisit ? { scale: 1, opacity: 1, rotate: 0 } : { scale: 1, opacity: 1 }}
-                transition={isFirstVisit ? { 
-                  duration: 0.6, 
-                  delay: 2.9,
-                  type: "spring",
-                  stiffness: 150
-                } : { duration: 0.4, delay: 0.9, ease: "easeOut" }}
-              >
-                📱 Mobile App Developer
-              </motion.span>
-              <motion.span 
-                className="px-4 py-2 bg-blue-300/20 rounded-full border border-blue-300/30 text-blue-300"
-                initial={isFirstVisit ? { scale: 0, opacity: 0, rotate: -10 } : { scale: 0.9, opacity: 0 }}
-                animate={isFirstVisit ? { scale: 1, opacity: 1, rotate: 0 } : { scale: 1, opacity: 1 }}
-                transition={isFirstVisit ? { 
-                  duration: 0.6, 
-                  delay: 3.0,
-                  type: "spring",
-                  stiffness: 150
-                } : { duration: 0.4, delay: 1.0, ease: "easeOut" }}
-              >
-                🤖 AI Specialist
-              </motion.span>
-            </motion.div>
-            <motion.div
-              initial={isFirstVisit ? { y: 20, opacity: 0 } : { y: 10, opacity: 0 }}
-              animate={isFirstVisit ? { y: 0, opacity: 1 } : { y: 0, opacity: 1 }}
-              transition={isFirstVisit ? { duration: 0.8, delay: 3.0 } : { duration: 0.5, delay: 1.1, ease: "easeOut" }}
-            >
-              <GlareHover
-                width="auto"
-                height="auto"
-                background="linear-gradient(to right, #F8BBD9, #A855F7)"
-                borderRadius="9999px"
-                borderColor="transparent"
-                glareColor="#ffffff"
-                glareOpacity={0.6}
-                glareAngle={-45}
-                glareSize={200}
-                transitionDuration={600}
-                className="inline-block border-0 hover:shadow-lg hover:shadow-pink-300/25 transition-all duration-300 transform hover:scale-105"
-              >
-                <a 
-                  href="/works"
-                  className="block px-8 py-4 text-white font-semibold text-center"
+            <div className="section-kicker">
+              <span className="h-2 w-2 rounded-full bg-[#8fc9a4]" />
+              Available for freelance work
+            </div>
+
+            <h1 className="section-title max-w-3xl">
+              Building calm,{' '}
+              <span className="relative inline-block whitespace-nowrap">
+                <span className="relative z-10">useful</span>
+                <svg
+                  className="absolute left-1/2 top-1/2 h-[calc(100%+16px)] w-[calc(100%+40px)] md:h-[calc(100%+24px)] md:w-[calc(100%+80px)] -translate-x-1/2 -translate-y-1/2 text-[#8fc9a4] z-0 pointer-events-none -rotate-[6deg]"
+                  viewBox="0 0 100 40"
+                  preserveAspectRatio="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
                 >
-                  View My Work ➜
-                </a>
-              </GlareHover>
-            </motion.div>
+                  <motion.path
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+                    d="M 10 22 C 15 6, 40 2, 75 6 C 96 9, 98 25, 85 34 C 60 42, 20 40, 10 28 C 4 20, 10 10, 25 8"
+                  />
+                </svg>
+              </span>{' '}
+              digital experiences.
+            </h1>
+
+            <p className="section-copy mt-6 max-w-2xl">
+              Hi, I&apos;m Azrul, a fresh graduate who creates responsive websites and app interfaces with a focus on clean structure, thoughtful interaction, and modern frontend craft.
+
+            </p>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href="/works" className="soft-button">
+                View my work
+                <ArrowRight className="h-4 w-4" />
+              </a>
+              <a href="/contact" className="ghost-button">
+                Contact me
+                <MessageCircle className="h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              {specialties.map((item) => (
+                <span key={item} className="tag-pill">
+                  <CheckCircle2 className="mr-2 h-4 w-4" />
+                  {item}
+                </span>
+              ))}
+            </div>
           </motion.div>
-        </motion.div>
-      </section>
+
+          <motion.div
+            className="hidden lg:block surface-card relative overflow-hidden p-5"
+            initial={{ y: 28, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
+          >
+            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-xs font-bold text-[#2f7a52] shadow-sm">
+              <Layers3 className="h-4 w-4" />
+              Frontend Portfolio
+            </div>
+
+            <div className="rounded-lg bg-gradient-to-br from-[#e8f4ec] via-white to-[#f4f7f4] px-6 pt-14">
+              <div className="mx-auto flex aspect-square max-w-[420px] items-end justify-center overflow-hidden rounded-b-none rounded-t-[999px] bg-[#dcefe3]">
+                <Image
+                  src="/memoji.png"
+                  alt="Azrul Memoji"
+                  width={420}
+                  height={420}
+                  priority
+                  className="h-[86%] w-[86%] object-contain drop-shadow-[0_22px_30px_rgba(31,81,57,0.2)]"
+                />
+              </div>
+            </div>
+
+            <div className="grid gap-3 pt-5 sm:grid-cols-3">
+              {[
+                ['10+', 'Projects'],
+                ['200+', 'Commits'],
+                ['8+', 'Tech stacks'],
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-lg border border-emerald-900/10 bg-white/72 p-4">
+                  <div className="text-2xl font-black text-[#1f5139]">{value}</div>
+                  <div className="mt-1 text-sm font-semibold text-slate-500">{label}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </section>
+      </main>
     </motion.div>
   );
 }
