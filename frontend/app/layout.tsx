@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Azrul Mustaqqim | Portfolio",
+  title: "Azrul | Portfolio",
   description: "Frontend and mobile developer portfolio by Azrul Mustaqqim.",
 };
 

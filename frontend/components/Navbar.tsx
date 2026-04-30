@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { type MouseEvent, useEffect, useState } from 'react';
 import { BriefcaseBusiness, Code2, Home, Mail, Sparkles, UserRound } from 'lucide-react';
 import TextType from './TextType';
 
@@ -28,6 +27,25 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSectionLinkClick = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    event.preventDefault();
+
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    const navbarOffset = window.innerWidth >= 768 ? 96 : 24;
+    const top = section.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+    window.history.pushState(null, '', `#${sectionId}`);
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: 'smooth',
+    });
+  };
+
   const navItems = [
     { href: '#home', id: 'home', label: 'Home', title: 'Home', icon: Home },
     { href: '#about', id: 'about', label: 'About', title: 'About', icon: UserRound },
@@ -40,7 +58,7 @@ export default function Navbar() {
     <>
       <nav className="fixed left-1/2 top-5 z-50 hidden -translate-x-1/2 md:block">
         <div className="flex items-center gap-7 rounded-full border border-emerald-900/10 bg-white/78 px-5 py-3 shadow-[0_18px_50px_rgba(51,86,65,0.14)] backdrop-blur-xl">
-          <Link href="#home" className="flex items-center gap-2 rounded-full px-2 text-emerald-950">
+          <a href="#home" onClick={(event) => handleSectionLinkClick(event, 'home')} className="flex items-center gap-2 rounded-full px-2 text-emerald-950">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#dff0e5] text-[#2f7a52]">
               <Sparkles className="h-4 w-4" />
             </span>
@@ -55,7 +73,7 @@ export default function Navbar() {
               className="text-sm font-bold tracking-normal"
               textColors={['#17211b', '#2f7a52', '#6aa57d']}
             />
-          </Link>
+          </a>
 
           <div className="flex items-center gap-1">
             {navItems.map((item) => {
@@ -63,9 +81,10 @@ export default function Navbar() {
               const isActive = activeSection === item.id;
 
               return (
-                <Link
+                <a
                   key={item.href}
                   href={item.href}
+                  onClick={(event) => handleSectionLinkClick(event, item.id)}
                   className={`flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition-all duration-200 ${
                     isActive
                       ? 'bg-[#1f5139] text-white shadow-[0_10px_24px_rgba(31,81,57,0.2)]'
@@ -75,7 +94,7 @@ export default function Navbar() {
                 >
                   <Icon className="h-4 w-4" />
                   {item.label}
-                </Link>
+                </a>
               );
             })}
           </div>
@@ -89,9 +108,10 @@ export default function Navbar() {
             const isActive = activeSection === item.id;
 
             return (
-              <Link
+              <a
                 key={item.href}
                 href={item.href}
+                onClick={(event) => handleSectionLinkClick(event, item.id)}
                 className={`flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 ${
                   isActive ? 'bg-[#1f5139] text-white' : 'text-slate-600 hover:bg-[#eef7f1] hover:text-[#1f5139]'
                 }`}
@@ -99,7 +119,7 @@ export default function Navbar() {
                 aria-label={item.title}
               >
                 <Icon className="h-5 w-5" />
-              </Link>
+              </a>
             );
           })}
         </div>

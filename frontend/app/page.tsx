@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { type MouseEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Layers3, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
@@ -17,6 +17,10 @@ export default function Home() {
   const [isFirstVisit, setIsFirstVisit] = useState(true);
 
   useEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
     const hasVisited = sessionStorage.getItem('hasVisitedHomepage');
 
     if (hasVisited) {
@@ -29,8 +33,32 @@ export default function Home() {
     }
   }, []);
 
+  const handleIntroComplete = () => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    setShowIntro(false);
+  };
+
+  const handleSectionLinkClick = (event: MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    event.preventDefault();
+
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    const navbarOffset = window.innerWidth >= 768 ? 96 : 24;
+    const top = section.getBoundingClientRect().top + window.scrollY - navbarOffset;
+
+    window.history.pushState(null, '', `#${sectionId}`);
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior: 'smooth',
+    });
+  };
+
   if (isFirstVisit && showIntro) {
-    return <IntroPage onComplete={() => setShowIntro(false)} />;
+    return <IntroPage onComplete={handleIntroComplete} />;
   }
 
   const specialties = ['Web Developer', 'Mobile App Developer', 'AI Specialist'];
@@ -38,9 +66,9 @@ export default function Home() {
   return (
     <motion.div
       className="portfolio-page"
-      initial={isFirstVisit ? { opacity: 0, scale: 1.02, filter: 'blur(14px)' } : { opacity: 0 }}
-      animate={isFirstVisit ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : { opacity: 1 }}
-      transition={isFirstVisit ? { duration: 1.1, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={isFirstVisit ? { duration: 0.8, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
     >
       <Navbar />
 
@@ -82,11 +110,11 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#works" className="soft-button">
+              <a href="#works" className="soft-button" onClick={(event) => handleSectionLinkClick(event, 'works')}>
                 View my work
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#contact" className="ghost-button">
+              <a href="#contact" className="ghost-button" onClick={(event) => handleSectionLinkClick(event, 'contact')}>
                 Contact me
                 <MessageCircle className="h-4 w-4" />
               </a>
