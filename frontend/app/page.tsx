@@ -6,6 +6,11 @@ import { ArrowRight, CheckCircle2, Layers3, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import IntroPage from '../components/IntroPage';
+import AboutSection from '../components/sections/AboutSection';
+import WorksSection from '../components/sections/WorksSection';
+import ServicesSection from '../components/sections/ServicesSection';
+import ContactSection from '../components/sections/ContactSection';
+import BackToTop from '../components/BackToTop';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -40,17 +45,12 @@ export default function Home() {
       <Navbar />
 
       <main className="page-shell">
-        <section className="grid min-h-[calc(100vh-180px)] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+        <section id="home" className="grid min-h-[calc(100vh-180px)] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] pt-20 pb-10">
           <motion.div
             initial={{ y: 28, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
           >
-            <div className="section-kicker">
-              <span className="h-2 w-2 rounded-full bg-[#8fc9a4]" />
-              Available for freelance work
-            </div>
-
             <h1 className="section-title max-w-3xl">
               Building calm,{' '}
               <span className="relative inline-block whitespace-nowrap">
@@ -82,11 +82,11 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="/works" className="soft-button">
+              <a href="#works" className="soft-button">
                 View my work
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="/contact" className="ghost-button">
+              <a href="#contact" className="ghost-button">
                 Contact me
                 <MessageCircle className="h-4 w-4" />
               </a>
@@ -116,31 +116,27 @@ export default function Home() {
             <div className="rounded-lg bg-gradient-to-br from-[#e8f4ec] via-white to-[#f4f7f4] px-6 pt-14">
               <div className="mx-auto flex aspect-square max-w-[420px] items-end justify-center overflow-hidden rounded-b-none rounded-t-[999px] bg-[#dcefe3]">
                 <Image
-                  src="/memoji.png"
-                  alt="Azrul Memoji"
+                  src="/azrul-image.jpg"
+                  alt="Azrul"
                   width={420}
                   height={420}
                   priority
-                  className="h-[86%] w-[86%] object-contain drop-shadow-[0_22px_30px_rgba(31,81,57,0.2)]"
+                  className="h-full w-full object-cover drop-shadow-[0_22px_30px_rgba(31,81,57,0.2)] rounded-t-[999px]"
                 />
               </div>
             </div>
 
-            <div className="grid gap-3 pt-5 sm:grid-cols-3">
-              {[
-                ['10+', 'Projects'],
-                ['200+', 'Commits'],
-                ['8+', 'Tech stacks'],
-              ].map(([value, label]) => (
-                <div key={label} className="rounded-lg border border-emerald-900/10 bg-white/72 p-4">
-                  <div className="text-2xl font-black text-[#1f5139]">{value}</div>
-                  <div className="mt-1 text-sm font-semibold text-slate-500">{label}</div>
-                </div>
-              ))}
-            </div>
+            
           </motion.div>
         </section>
+
+        <AboutSection />
+        <WorksSection />
+        <ServicesSection />
+        <ContactSection />
       </main>
+      
+      <BackToTop />
     </motion.div>
   );
 }

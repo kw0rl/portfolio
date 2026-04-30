@@ -1,26 +1,46 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { BriefcaseBusiness, Code2, Home, Mail, Sparkles, UserRound } from 'lucide-react';
 import TextType from './TextType';
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'works', 'services', 'contact'];
+      let currentSection = 'home';
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100) {
+            currentSection = section;
+          }
+        }
+      }
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
-    { href: '/', label: 'Home', title: 'Home', icon: Home },
-    { href: '/about', label: 'About', title: 'About', icon: UserRound },
-    { href: '/works', label: 'Works', title: 'Works', icon: BriefcaseBusiness },
-    { href: '/services', label: 'Services', title: 'Services', icon: Code2 },
-    { href: '/contact', label: 'Contact', title: 'Contact', icon: Mail },
+    { href: '#home', id: 'home', label: 'Home', title: 'Home', icon: Home },
+    { href: '#about', id: 'about', label: 'About', title: 'About', icon: UserRound },
+    { href: '#works', id: 'works', label: 'Works', title: 'Works', icon: BriefcaseBusiness },
+    { href: '#services', id: 'services', label: 'Services', title: 'Services', icon: Code2 },
+    { href: '#contact', id: 'contact', label: 'Contact', title: 'Contact', icon: Mail },
   ];
 
   return (
     <>
       <nav className="fixed left-1/2 top-5 z-50 hidden -translate-x-1/2 md:block">
         <div className="flex items-center gap-7 rounded-full border border-emerald-900/10 bg-white/78 px-5 py-3 shadow-[0_18px_50px_rgba(51,86,65,0.14)] backdrop-blur-xl">
-          <Link href="/" className="flex items-center gap-2 rounded-full px-2 text-emerald-950">
+          <Link href="#home" className="flex items-center gap-2 rounded-full px-2 text-emerald-950">
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#dff0e5] text-[#2f7a52]">
               <Sparkles className="h-4 w-4" />
             </span>
@@ -40,7 +60,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = pathname === item.href;
+              const isActive = activeSection === item.id;
 
               return (
                 <Link
@@ -66,7 +86,7 @@ export default function Navbar() {
         <div className="flex items-center justify-center gap-1 rounded-full border border-emerald-900/10 bg-white/88 px-3 py-2 shadow-[0_18px_50px_rgba(51,86,65,0.18)] backdrop-blur-xl">
           {navItems.map((item) => {
             const Icon = item.icon;
-            const isActive = pathname === item.href;
+            const isActive = activeSection === item.id;
 
             return (
               <Link
