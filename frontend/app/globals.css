@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7faf6;
-  --foreground: #17211b;
-  --muted: #66736b;
-  --surface: #ffffff;
-  --surface-soft: #eef4ef;
-  --border: #dce7de;
-  --accent: #8fc9a4;
-  --accent-strong: #2f7a52;
-  --accent-deep: #1f5139;
+  --background: #050505;
+  --foreground: #f8fafc;
+  --muted: #a3a3a3;
+  --surface: rgba(18, 18, 18, 0.74);
+  --surface-soft: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.14);
+  --accent: #f5f5f5;
+  --accent-strong: #d4d4d4;
+  --accent-deep: #ffffff;
 }
 
 * {
@@ -25,16 +25,17 @@ body {
   margin: 0;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 12% 8%, rgba(143, 201, 164, 0.34), transparent 32rem),
-    radial-gradient(circle at 85% 16%, rgba(209, 232, 216, 0.6), transparent 28rem),
-    linear-gradient(135deg, #fbfdfb 0%, #f2f7f3 44%, #e9f1ec 100%);
+    radial-gradient(circle at 16% 12%, rgba(255, 255, 255, 0.12), transparent 30rem),
+    radial-gradient(circle at 84% 22%, rgba(148, 163, 184, 0.16), transparent 26rem),
+    radial-gradient(circle at 52% 90%, rgba(255, 255, 255, 0.08), transparent 32rem),
+    linear-gradient(135deg, #020202 0%, #0b0b0d 42%, #151515 100%);
   color: var(--foreground);
   font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
 ::selection {
-  background: rgba(143, 201, 164, 0.45);
-  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.24);
+  color: #ffffff;
 }
 
 ::-webkit-scrollbar {
@@ -42,24 +43,24 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #edf3ee;
+  background: #080808;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #accdb8;
-  border: 2px solid #edf3ee;
+  background: #525252;
+  border: 2px solid #080808;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #83b898;
+  background: #737373;
 }
 
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
-  outline: 3px solid rgba(47, 122, 82, 0.28);
+  outline: 3px solid rgba(255, 255, 255, 0.24);
   outline-offset: 3px;
 }
 
@@ -85,12 +86,13 @@ a:focus-visible {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(31, 81, 57, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(31, 81, 57, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
   background-size: 44px 44px;
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 78%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent 80%);
   animation: grid-drift 18s linear infinite;
 }
 
@@ -98,14 +100,38 @@ a:focus-visible {
   content: "";
   position: fixed;
   inset: -30%;
+  z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(115deg, transparent 34%, rgba(143, 201, 164, 0.16) 46%, rgba(255, 255, 255, 0.34) 50%, rgba(143, 201, 164, 0.13) 54%, transparent 66%),
-    repeating-linear-gradient(115deg, transparent 0 86px, rgba(47, 122, 82, 0.035) 87px 88px, transparent 89px 176px);
+    linear-gradient(115deg, transparent 34%, rgba(255, 255, 255, 0.1) 46%, rgba(255, 255, 255, 0.22) 50%, rgba(148, 163, 184, 0.1) 54%, transparent 66%),
+    repeating-linear-gradient(115deg, transparent 0 86px, rgba(255, 255, 255, 0.035) 87px 88px, transparent 89px 176px);
   filter: blur(0.2px);
-  opacity: 0.75;
+  opacity: 0.52;
   transform: translate3d(-8%, 4%, 0);
   animation: ambient-sweep 16s ease-in-out infinite alternate;
+}
+
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle-dot {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  background: #f8fafc;
+  opacity: var(--opacity);
+  box-shadow:
+    0 0 12px rgba(255, 255, 255, 0.92),
+    0 0 28px rgba(148, 163, 184, 0.55);
+  animation: particle-float var(--duration) ease-in-out var(--delay) infinite alternate;
 }
 
 .page-shell {
@@ -120,9 +146,9 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid rgba(47, 122, 82, 0.16);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--accent-strong);
   font-size: 0.78rem;
   font-weight: 700;
@@ -131,7 +157,7 @@ a:focus-visible {
 }
 
 .section-title {
-  color: #14231a;
+  color: var(--foreground);
   font-size: clamp(2.4rem, 5vw, 4.7rem);
   font-weight: 800;
   line-height: 0.98;
@@ -145,10 +171,12 @@ a:focus-visible {
 }
 
 .surface-card {
-  border: 1px solid rgba(124, 162, 137, 0.24);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 24px 70px rgba(53, 86, 66, 0.12);
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.105), rgba(255, 255, 255, 0.045)),
+    rgba(10, 10, 10, 0.74);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.42);
   backdrop-filter: blur(18px);
 }
 
@@ -158,17 +186,18 @@ a:focus-visible {
   justify-content: center;
   gap: 10px;
   border-radius: 999px;
-  background: var(--accent-deep);
-  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #f8fafc;
+  color: #050505;
   font-weight: 700;
   padding: 14px 20px;
-  box-shadow: 0 18px 34px rgba(31, 81, 57, 0.2);
+  box-shadow: 0 18px 34px rgba(255, 255, 255, 0.1);
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .soft-button:hover {
-  background: #276246;
-  box-shadow: 0 22px 40px rgba(31, 81, 57, 0.24);
+  background: #d4d4d4;
+  box-shadow: 0 22px 40px rgba(255, 255, 255, 0.15);
   transform: translateY(-2px);
 }
 
@@ -177,31 +206,85 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  border: 1px solid rgba(47, 122, 82, 0.18);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: var(--accent-deep);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--foreground);
   font-weight: 700;
   padding: 14px 20px;
   transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
 }
 
 .ghost-button:hover {
-  border-color: rgba(47, 122, 82, 0.34);
-  background: white;
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
 }
 
+.shine-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.shine-button::before {
+  content: "";
+  position: absolute;
+  inset: -40% auto -40% -75%;
+  z-index: 0;
+  width: 58%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 22%,
+    rgba(255, 255, 255, 0.88) 48%,
+    rgba(255, 255, 255, 0.16) 58%,
+    transparent 78%
+  );
+  filter: blur(1px);
+  transform: translateX(0) skewX(-18deg);
+  transition: transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.shine-button:hover::before,
+.shine-button:focus-visible::before {
+  transform: translateX(380%) skewX(-18deg);
+}
+
+.shine-button > svg {
+  position: relative;
+  z-index: 1;
+}
+
 .tag-pill {
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
-  border: 1px solid rgba(47, 122, 82, 0.14);
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: #eef7f1;
-  color: var(--accent-strong);
+  background: rgba(255, 255, 255, 0.07);
+  color: #d4d4d4;
   font-size: 0.84rem;
   font-weight: 700;
   padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.specialty-marquee {
+  width: min(100%, 520px);
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.specialty-marquee-track {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  animation: specialty-slide 16s linear infinite;
+  will-change: transform;
 }
 
 @media (max-width: 767px) {
@@ -212,6 +295,13 @@ a:focus-visible {
 
   .portfolio-page::after {
     opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .specialty-marquee-track {
+    animation: none;
+    transform: none;
   }
 }
 
@@ -230,5 +320,23 @@ a:focus-visible {
   }
   to {
     transform: translate3d(8%, -5%, 0) rotate(0.001deg);
+  }
+}
+
+@keyframes particle-float {
+  from {
+    transform: translate3d(-8px, 8px, 0) scale(0.82);
+  }
+  to {
+    transform: translate3d(12px, -18px, 0) scale(1.14);
+  }
+}
+
+@keyframes specialty-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% - 6px));
   }
 }

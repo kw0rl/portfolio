@@ -11,6 +11,8 @@ import WorksSection from '../components/sections/WorksSection';
 import ServicesSection from '../components/sections/ServicesSection';
 import ContactSection from '../components/sections/ContactSection';
 import BackToTop from '../components/BackToTop';
+import ParticleBackground from '../components/ParticleBackground';
+import GradualBlur from '../components/GradualBlur';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -70,11 +72,13 @@ export default function Home() {
       animate={{ opacity: 1 }}
       transition={isFirstVisit ? { duration: 0.8, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
     >
+      <ParticleBackground />
       <Navbar />
 
       <main className="page-shell">
-        <section id="home" className="grid min-h-[calc(100vh-180px)] items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] pt-20 pb-10">
+        <section id="home" className="grid min-h-[calc(100vh-180px)] items-center gap-12 pt-20 pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(380px,480px)]">
           <motion.div
+            className="min-w-0"
             initial={{ y: 28, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -84,7 +88,7 @@ export default function Home() {
               <span className="relative inline-block whitespace-nowrap">
                 <span className="relative z-10">useful</span>
                 <svg
-                  className="absolute left-1/2 top-1/2 h-[calc(100%+16px)] w-[calc(100%+40px)] md:h-[calc(100%+24px)] md:w-[calc(100%+80px)] -translate-x-1/2 -translate-y-1/2 text-[#8fc9a4] z-0 pointer-events-none -rotate-[6deg]"
+                  className="absolute left-1/2 top-1/2 h-[calc(100%+16px)] w-[calc(100%+40px)] md:h-[calc(100%+24px)] md:w-[calc(100%+80px)] -translate-x-1/2 -translate-y-1/2 text-white/45 z-0 pointer-events-none -rotate-[6deg]"
                   viewBox="0 0 100 40"
                   preserveAspectRatio="none"
                   stroke="currentColor"
@@ -110,49 +114,53 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#works" className="soft-button" onClick={(event) => handleSectionLinkClick(event, 'works')}>
+              <a href="#works" className="soft-button shine-button" onClick={(event) => handleSectionLinkClick(event, 'works')}>
                 View my work
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="#contact" className="ghost-button" onClick={(event) => handleSectionLinkClick(event, 'contact')}>
+              <a href="#contact" className="ghost-button shine-button" onClick={(event) => handleSectionLinkClick(event, 'contact')}>
                 Contact me
                 <MessageCircle className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              {specialties.map((item) => (
-                <span key={item} className="tag-pill">
-                  <CheckCircle2 className="mr-2 h-4 w-4" />
-                  {item}
-                </span>
-              ))}
+            <div className="specialty-marquee mt-8" aria-label={specialties.join(', ')}>
+              <div className="specialty-marquee-track">
+                {[...specialties, ...specialties].map((item, index) => (
+                  <span key={`${index}-${item}`} className="tag-pill" aria-hidden={index >= specialties.length}>
+                    <CheckCircle2 className="mr-2 h-4 w-4" />
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
           </motion.div>
 
           <motion.div
-            className="hidden lg:block surface-card relative overflow-hidden p-5"
+            className="surface-card relative hidden w-full max-w-[480px] justify-self-center overflow-hidden p-5 lg:block"
             initial={{ y: 28, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
           >
-            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full bg-white/80 px-3 py-2 text-xs font-bold text-[#2f7a52] shadow-sm">
+            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-3 py-2 text-xs font-bold text-zinc-100 shadow-sm backdrop-blur">
               <Layers3 className="h-4 w-4" />
               Frontend Portfolio
             </div>
 
-            <div className="rounded-lg bg-gradient-to-br from-[#e8f4ec] via-white to-[#f4f7f4] px-6 pt-14">
-              <div className="mx-auto flex aspect-square max-w-[420px] items-end justify-center overflow-hidden rounded-b-none rounded-t-[999px] bg-[#dcefe3]">
+            <div className="rounded-lg border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 px-6 pt-14 pb-6">
+              <div className="relative ml-auto aspect-square w-full max-w-[390px] overflow-hidden rounded-lg bg-zinc-800">
                 <Image
                   src="/azrul-image.jpg"
                   alt="Azrul"
-                  width={420}
-                  height={420}
+                  fill
+                  sizes="390px"
                   priority
-                  className="h-full w-full object-cover drop-shadow-[0_22px_30px_rgba(31,81,57,0.2)] rounded-t-[999px]"
+                  className="object-cover object-center drop-shadow-[0_22px_30px_rgba(255,255,255,0.12)]"
                 />
               </div>
             </div>
+
+            
 
             
           </motion.div>
@@ -165,6 +173,17 @@ export default function Home() {
       </main>
       
       <BackToTop />
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="7rem"
+        strength={2}
+        divCount={5}
+        curve="bezier"
+        exponential
+        opacity={1}
+        zIndex={40}
+      />
     </motion.div>
   );
 }

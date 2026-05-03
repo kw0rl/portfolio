@@ -25,7 +25,7 @@ const IntroPage = ({ onComplete }: IntroPageProps) => {
     <AnimatePresence mode="wait">
       {showHello && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[#f7faf6]"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black"
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
@@ -38,7 +38,7 @@ const IntroPage = ({ onComplete }: IntroPageProps) => {
           }}
         >
           <motion.div
-            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(143,201,164,0.42),transparent_32rem)]"
+            className="absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,rgba(255,255,255,0.18),transparent_26rem),radial-gradient(circle_at_50%_54%,rgba(148,163,184,0.12),transparent_34rem)]"
             exit={{
               opacity: 0,
               scale: 1.06,
@@ -62,7 +62,7 @@ const IntroPage = ({ onComplete }: IntroPageProps) => {
               }}
             >
               <AppleHelloEffect
-                className="mb-8 h-24 text-[#1f5139] md:h-32 lg:h-40"
+                className="mb-8 h-24 text-white md:h-32 lg:h-40"
                 speed={1.2}
                 onAnimationComplete={handleAnimationComplete}
               />
@@ -81,8 +81,8 @@ const IntroPage = ({ onComplete }: IntroPageProps) => {
                 duration: 0.8,
               }}
             >
-              <h2 className="text-xl font-bold text-[#17211b] md:text-2xl">I&apos;m Azrul</h2>
-              <p className="mt-2 text-sm font-medium text-slate-500 md:text-base">Welcome to my portfolio</p>
+              <h2 className="text-xl font-bold text-white md:text-2xl">I&apos;m Azrul</h2>
+              <p className="mt-2 text-sm font-medium text-zinc-400 md:text-base">Welcome to my portfolio</p>
             </motion.div>
           </div>
         </motion.div>
