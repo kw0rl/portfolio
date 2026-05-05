@@ -13,6 +13,8 @@ import ContactSection from '../components/sections/ContactSection';
 import BackToTop from '../components/BackToTop';
 import ParticleBackground from '../components/ParticleBackground';
 import GradualBlur from '../components/GradualBlur';
+import GradientText from '../components/GradientText';
+import ProfileCard from '../components/ProfileCard';
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -85,27 +87,17 @@ export default function Home() {
           >
             <h1 className="section-title max-w-3xl">
               Building calm,{' '}
-              <span className="relative inline-block whitespace-nowrap">
-                <span className="relative z-10">useful</span>
-                <svg
-                  className="absolute left-1/2 top-1/2 h-[calc(100%+16px)] w-[calc(100%+40px)] md:h-[calc(100%+24px)] md:w-[calc(100%+80px)] -translate-x-1/2 -translate-y-1/2 text-white/45 z-0 pointer-events-none -rotate-[6deg]"
-                  viewBox="0 0 100 40"
-                  preserveAspectRatio="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                >
-                  <motion.path
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-                    d="M 10 22 C 15 6, 40 2, 75 6 C 96 9, 98 25, 85 34 C 60 42, 20 40, 10 28 C 4 20, 10 10, 25 8"
-                  />
-                </svg>
-              </span>{' '}
-              digital experiences.
+              useful{' '}
+              <GradientText
+                colors={["#EAB308","#EC4899","#e66e83"]}
+                animationSpeed={2.5}
+                showBorder={false}
+                yoyo={false}
+                className=""
+              >
+                digital
+              </GradientText>
+              {' '}experiences.
             </h1>
 
             <p className="section-copy mt-6 max-w-2xl">
@@ -142,27 +134,35 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
           >
-            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-3 py-2 text-xs font-bold text-zinc-100 shadow-sm backdrop-blur">
+            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-3 py-2 text-xs font-bold text-zinc-100 shadow-sm backdrop-blur z-20">
               <Layers3 className="h-4 w-4" />
               Frontend Portfolio
             </div>
 
-            <div className="rounded-lg border border-white/10 bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 px-6 pt-14 pb-6">
-              <div className="relative ml-auto aspect-square w-full max-w-[390px] overflow-hidden rounded-lg bg-zinc-800">
-                <Image
-                  src="/azrul-image.jpg"
-                  alt="Azrul"
-                  fill
-                  sizes="390px"
-                  priority
-                  className="object-cover object-center drop-shadow-[0_22px_30px_rgba(255,255,255,0.12)]"
-                />
-              </div>
-            </div>
-
-            
-
-            
+            <ProfileCard
+              name="Azrul Mustaqqim"
+              title="Frontend Developer"
+              handle="azrul"
+              status="Available for work"
+              contactText="Contact Me"
+              avatarUrl="/azrul-image.jpg"
+              showUserInfo={true}
+              enableTilt={true}
+              enableMobileTilt={false}
+              onContactClick={() => {
+                const section = document.getElementById('contact');
+                if (section) {
+                  const navbarOffset = window.innerWidth >= 768 ? 96 : 24;
+                  const top = section.getBoundingClientRect().top + window.scrollY - navbarOffset;
+                  window.history.pushState(null, '', '#contact');
+                  window.scrollTo({
+                    top: Math.max(top, 0),
+                    behavior: 'smooth',
+                  });
+                }
+              }}
+              behindGlowEnabled={true}
+            />
           </motion.div>
         </section>
 

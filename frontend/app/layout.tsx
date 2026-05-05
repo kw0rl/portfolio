@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import SmoothScrolling from "../components/SmoothScrolling";
 
 export const metadata: Metadata = {
   title: "Azrul | Portfolio",
@@ -15,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <SmoothScrolling>
+          {children}
+        </SmoothScrolling>
         <Analytics />
       </body>
     </html>

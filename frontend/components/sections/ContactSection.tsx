@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import ScrollReveal from '../ScrollReveal';
+import ScrollFloat from '../ScrollFloat';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -42,7 +43,14 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-20">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
-        <h2 className="section-title">Let&apos;s connect</h2>
+        <ScrollFloat
+          animationDuration={1}
+          ease="back.inOut(2)"
+          stagger={0.03}
+          textClassName="section-title text-center !leading-tight translate-y-[-0.15em]"
+        >
+          Let&apos;s connect
+        </ScrollFloat>
         <p className="section-copy mt-6">
           I would love to hear from you. Send a message for feedback, collaboration, internship opportunities, or a simple hello.
         </p>

@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Check, MonitorSmartphone, PanelsTopLeft, Smartphone } from 'lucide-react';
 import ScrollReveal from '../ScrollReveal';
+import ScrollFloat from '../ScrollFloat';
 
 export default function ServicesSection() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -40,7 +41,14 @@ export default function ServicesSection() {
   return (
     <section id="services" className="py-20">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
-        <h2 className="section-title">UI Development</h2>
+        <ScrollFloat
+          animationDuration={1}
+          ease="back.inOut(2)"
+          stagger={0.03}
+          textClassName="section-title text-center !leading-tight translate-y-[-0.15em]"
+        >
+          UI Development
+        </ScrollFloat>
         <p className="section-copy mt-6">
           Services I am developing as I grow in web and mobile development, with an emphasis on maintainable interfaces and user-friendly flows.
         </p>

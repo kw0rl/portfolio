@@ -3,6 +3,7 @@
 import { ExternalLink } from 'lucide-react';
 import Image from 'next/image';
 import ScrollReveal from '../ScrollReveal';
+import ScrollFloat from '../ScrollFloat';
 
 export default function WorksSection() {
   const projects = [
@@ -19,7 +20,14 @@ export default function WorksSection() {
   return (
     <section id="works" className="py-20">
       <ScrollReveal className="mx-auto max-w-3xl text-center">
-        <h2 className="section-title">Structured Interface Projects</h2>
+        <ScrollFloat
+          animationDuration={1}
+          ease="back.inOut(2)"
+          stagger={0.03}
+          textClassName="section-title text-center !leading-tight translate-y-[-0.15em]"
+        >
+          Structured Interface Projects
+        </ScrollFloat>
         <p className="section-copy mt-6">
           A focused collection of work I have built while learning modern web development and improving my frontend process.
         </p>
