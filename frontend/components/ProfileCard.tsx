@@ -31,6 +31,7 @@ if (typeof document !== 'undefined' && !document.getElementById(KEYFRAMES_ID)) {
 
 interface ProfileCardProps {
   avatarUrl?: string;
+  avatarAlt?: string;
   iconUrl?: string;
   grainUrl?: string;
   innerGradient?: string;
@@ -62,6 +63,7 @@ interface TiltEngine {
 
 const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   avatarUrl = '<Placeholder for avatar URL>',
+  avatarAlt,
   iconUrl = '',
   grainUrl = '',
   innerGradient,
@@ -525,7 +527,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               <img
                 className="w-full h-full object-cover absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
                 src={avatarUrl}
-                alt={`${name || 'User'} avatar`}
+                alt={avatarAlt || `${name || 'User'} avatar`}
                 loading="lazy"
                 style={{
                   transformOrigin: '50% 100%',
@@ -563,7 +565,7 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
                       <img
                         className="w-full h-full object-cover"
                         src={miniAvatarUrl || avatarUrl}
-                        alt={`${name || 'User'} mini avatar`}
+                        alt={avatarAlt ? `Mini ${avatarAlt}` : `${name || 'User'} mini avatar`}
                         loading="lazy"
                         style={{ display: 'block', gridArea: 'auto', pointerEvents: 'auto' }}
                         onError={e => {

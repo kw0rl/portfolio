@@ -1,13 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef } from 'react';
 import { Check, MonitorSmartphone, PanelsTopLeft, Smartphone } from 'lucide-react';
 import ScrollReveal from '../ScrollReveal';
 import ScrollFloat from '../ScrollFloat';
 
 export default function ServicesSection() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const services = [
     {
@@ -31,10 +30,16 @@ export default function ServicesSection() {
   ];
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
+    if (!containerRef.current) return;
+    
+    const cards = containerRef.current.querySelectorAll('.service-card-spotlight');
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+      (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
     });
   };
 
@@ -54,24 +59,24 @@ export default function ServicesSection() {
         </p>
       </ScrollReveal>
 
-      <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        ref={containerRef}
+        onMouseMove={handleMouseMove}
+        className="group/container mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      >
         {services.map((service, index) => {
           const Icon = service.icon;
 
           return (
             <ScrollReveal
               key={service.title}
-              className="surface-card relative overflow-hidden p-7 transition duration-200 hover:-translate-y-1"
+              className="surface-card service-card-spotlight relative overflow-hidden p-7 transition duration-200 hover:-translate-y-1"
               delay={0.1 + index * 0.12}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-              onMouseMove={handleMouseMove}
             >
               <div
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 md:group-hover:opacity-100"
+                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 md:group-hover/container:opacity-100"
                 style={{
-                  opacity: hoveredCard === index ? 1 : 0,
-                  background: `radial-gradient(circle 220px at ${mousePosition.x}px ${mousePosition.y}px, rgba(255, 255, 255, 0.16), transparent 70%)`,
+                  background: 'radial-gradient(circle 260px at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.16), transparent 70%)',
                 }}
               />
               <div className="relative">

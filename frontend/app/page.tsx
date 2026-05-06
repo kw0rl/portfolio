@@ -20,6 +20,24 @@ export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Azrul Mustaqqim",
+    "url": "https://azrulism.my",
+    "jobTitle": "Frontend Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Available for work"
+    },
+    "description": "Frontend Developer specializing in responsive websites and app interfaces using React and Next.js.",
+    "sameAs": [
+      // Add your social links here, e.g.,
+      // "https://linkedin.com/in/yourprofile",
+      // "https://github.com/yourprofile"
+    ]
+  };
+
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -68,12 +86,17 @@ export default function Home() {
   const specialties = ['Web Developer', 'Mobile App Developer', 'AI Specialist'];
 
   return (
-    <motion.div
-      className="portfolio-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={isFirstVisit ? { duration: 0.8, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
-    >
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <motion.div
+        className="portfolio-page"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={isFirstVisit ? { duration: 0.8, ease: 'easeOut', delay: 0.1 } : { duration: 0.45, ease: 'easeOut' }}
+      >
       <ParticleBackground />
       <Navbar />
 
@@ -129,16 +152,11 @@ export default function Home() {
           </motion.div>
 
           <motion.div
-            className="surface-card relative hidden w-full max-w-[480px] justify-self-center overflow-hidden p-5 lg:block"
+            className="relative hidden w-full max-w-[480px] justify-self-center lg:block"
             initial={{ y: 28, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.12, ease: 'easeOut' }}
           >
-            <div className="absolute right-6 top-6 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 px-3 py-2 text-xs font-bold text-zinc-100 shadow-sm backdrop-blur z-20">
-              <Layers3 className="h-4 w-4" />
-              Frontend Portfolio
-            </div>
-
             <ProfileCard
               name="Azrul Mustaqqim"
               title="Frontend Developer"
@@ -146,6 +164,7 @@ export default function Home() {
               status="Available for work"
               contactText="Contact Me"
               avatarUrl="/azrul-image.jpg"
+              avatarAlt="Portrait of Azrul Mustaqqim, Frontend Developer"
               showUserInfo={true}
               enableTilt={true}
               enableMobileTilt={false}
@@ -185,5 +204,6 @@ export default function Home() {
         zIndex={40}
       />
     </motion.div>
+    </>
   );
 }
