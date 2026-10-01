@@ -87,3 +87,10 @@ temp/
 .Trashes
 ehthumbs.db
 Thumbs.db
+# Local verification output
+frontend/.test-build/
+frontend/tsconfig.tsbuildinfo
+frontend/dev-*.log
+frontend/.preview/
+frontend/test-results/
+frontend/playwright-report/

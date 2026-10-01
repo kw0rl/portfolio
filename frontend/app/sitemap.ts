@@ -1,14 +1,5 @@
-import { MetadataRoute } from 'next';
-
+import type { MetadataRoute } from 'next';
+import { profile } from '@/lib/content';
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://azrulism.my';
-
-  return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
-    }
-  ];
+  return [{ url: profile.url, changeFrequency: 'monthly', priority: 1 }, { url: `${profile.url}/work/ranaco`, changeFrequency: 'monthly', priority: 0.8 }];
 }

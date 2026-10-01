@@ -1,67 +1,22 @@
-import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next";
-import "./globals.css";
-import SmoothScrolling from "../components/SmoothScrolling";
+import type { Metadata } from 'next';
+import { DM_Serif_Display, Manrope } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { profile } from '@/lib/content';
+import SmoothScrolling from '@/components/SmoothScrolling';
+import 'lenis/dist/lenis.css';
+import './globals.css';
 
+const display = DM_Serif_Display({ subsets: ['latin'], weight: '400', style: ['normal', 'italic'], variable: '--font-display', display: 'swap' });
+const body = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' });
+const description = 'Azrul Mustaqqim is a frontend developer in Terengganu, Malaysia, building thoughtful websites and app interfaces with React, Next.js, and TypeScript.';
 export const metadata: Metadata = {
-  metadataBase: new URL('https://azrulism.my'),
-  title: "Azrul | Frontend Developer Portfolio",
-  description: "Portfolio of Azrul Mustaqqim, a fresh graduate and Frontend Developer passionate about creating responsive websites and app interfaces with a focus on clean structure and modern frontend craft.",
-  keywords: ["Frontend Developer", "Web Developer", "React", "Next.js", "Portfolio", "Azrul Mustaqqim", "Malaysia", "UI/UX"],
-  authors: [{ name: "Azrul Mustaqqim" }],
-  creator: "Azrul Mustaqqim",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://azrulism.my",
-    title: "Azrul | Frontend Developer Portfolio",
-    description: "Portfolio of Azrul Mustaqqim, a fresh graduate and Frontend Developer passionate about creating responsive websites and app interfaces.",
-    siteName: "Azrul's Portfolio",
-    images: [
-      {
-        url: "/og-image.jpeg", // Replace with your actual image in the public folder
-        width: 1200,
-        height: 630,
-        alt: "Azrul Mustaqqim - Frontend Developer",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Azrul | Frontend Developer Portfolio",
-    description: "Portfolio of Azrul Mustaqqim, a fresh graduate and Frontend Developer passionate about creating responsive websites and app interfaces.",
-    images: ["/og-image.jpeg"], // Replace with your actual image in the public folder
-    creator: "@azrul", // Update with your actual twitter handle if you have one
-  },
-  alternates: {
-    canonical: "https://azrulism.my",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
+  metadataBase: new URL(profile.url),
+  title: { default: 'Azrul Mustaqqim — Frontend Developer', template: '%s | Azrul Mustaqqim' },
+  description, authors: [{ name: profile.name }], creator: profile.name,
+  openGraph: { type: 'website', locale: 'en_MY', url: '/', siteName: 'Azrul Mustaqqim', title: 'Useful by design. Thoughtful by detail.', description, images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Azrul Mustaqqim — Frontend Developer' }] },
+  twitter: { card: 'summary_large_image', title: 'Azrul Mustaqqim — Frontend Developer', description, images: ['/opengraph-image'] },
+  alternates: { canonical: '/' }, robots: { index: true, follow: true },
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body>
-        <SmoothScrolling>
-          {children}
-        </SmoothScrolling>
-        <Analytics />
-      </body>
-    </html>
-  );
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body className={`${display.variable} ${body.variable}`}><SmoothScrolling />{children}<Analytics /></body></html>;
 }

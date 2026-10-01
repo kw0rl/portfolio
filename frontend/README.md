@@ -1,186 +1,50 @@
-# Portfolio Website
+# Azrul — Frontend portfolio
 
-A modern, animated portfolio website built with Next.js, featuring a stunning PrismaticBurst WebGL background and smooth scrolling sections.
+A light editorial portfolio built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. The homepage introduces Azrul, features Ranaco, and presents background, services, and a contact form. `/work/ranaco` contains the project case study.
 
-## ✨ Features
+## Run locally
 
-- **Animated WebGL Background**: Beautiful PrismaticBurst effect with customizable colors and animations
-- **5 Main Sections**:
-  - 🏠 **Home**: Hero section with introduction
-  - 👨‍💻 **About**: Technical skills with animated progress bars
-  - 💼 **Works**: Portfolio showcase with Live Demo buttons
-  - 🛠️ **Services**: Web dev, mobile dev, and frontend services
-  - 📧 **Contact**: Contact form with email integration
-- **Responsive Design**: Mobile-first approach with glass-morphism effects
-- **Smooth Scrolling**: Seamless navigation between sections
-- **Email Integration**: Contact form sends messages to your email
-- **Accessibility**: Keyboard navigation and reduced-motion support
+Use Node.js 20.9 or newer. All application commands run from `frontend`:
 
-## 🚀 Tech Stack
-
-- **Frontend**: Next.js 16 with TypeScript
-- **Styling**: Tailwind CSS with custom animations
-- **WebGL**: OGL library for 3D background effects
-- **Email**: Next.js API routes (ready for nodemailer integration)
-
-## 📦 Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd portfolio
-   ```
-
-2. **Install dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-3. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-4. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🎨 Customization
-
-### Background Colors
-Edit the `colors` prop in `PrismaticBurst` component in `app/page.tsx`:
-```tsx
-colors={['#00ffff', '#0080ff', '#0040ff', '#8000ff', '#ff0080']}
+```sh
+npm ci
+npm run dev
 ```
 
-### Personal Information
-Update the following in `app/page.tsx`:
-- Hero section title and description
-- Skills and percentages in the `skills` array
-- Projects in the `projects` array
-- Services in the `services` array
-- Contact information (email, phone, location)
+Open http://localhost:3000. For a production preview, run `npm run build` and then `npm start`.
 
-### Email Setup
-To enable real email sending:
+## Checks
 
-1. **Install nodemailer**
-   ```bash
-   npm install nodemailer @types/nodemailer
-   ```
-
-2. **Add environment variables** (create `.env.local`):
-   ```env
-   EMAIL_USER=your.email@gmail.com
-   EMAIL_PASS=your-app-password
-   ```
-
-3. **Uncomment email code** in `app/api/contact/route.ts`
-
-## 🎯 Sections Overview
-
-### 1. Home Section
-- Hero introduction with animated background
-- Role badges (Web Developer, Mobile App Developer, AI Specialist)
-- Call-to-action button
-
-### 2. About Section
-- Personal introduction
-- Technical skills with animated progress bars
-- Customizable skill levels
-
-### 3. Works Section
-- Project showcase with cards
-- Technology badges for each project
-- Live Demo buttons (customize URLs)
-
-### 4. Services Section
-- Three main service categories
-- Feature lists for each service
-- Icon-based design
-
-### 5. Contact Section
-- Contact information display
-- Social media links
-- Contact form for affirmations/messages
-- Form validation and submission handling
-
-## 🔧 Customization Guide
-
-### Adding New Projects
-```tsx
-const projects = [
-  {
-    title: 'Your Project Name',
-    description: 'Project description...',
-    technologies: ['React', 'Node.js', 'MongoDB'],
-    demoUrl: 'https://your-demo-url.com',
-    image: '/your-image.jpg'
-  },
-  // Add more projects...
-];
+```sh
+npm run lint
+npm run typecheck
+npm test
+npm run build
 ```
 
-### Updating Skills
-```tsx
-const skills = [
-  { name: 'React', level: 95 },
-  { name: 'Your Skill', level: 80 },
-  // Add more skills...
-];
+Contact tests use mocked delivery and never send email. After a production build, run `npm run test:e2e` for responsive, accessibility, navigation, and mocked contact-form browser tests. The suite uses installed Google Chrome in headless mode and saves review screenshots in `.preview/`.
+
+## Content and design
+
+- `lib/content.ts` contains the public profile, contact recipient, and Ranaco project details.
+- `app/globals.css` contains the editorial layout and palette: sage, tan, warm gray, off-white, and charcoal.
+- DM Serif Display and Manrope are loaded with `next/font/google`; building requires access to Google Fonts.
+- Keep the portrait, two Ranaco screenshots, and résumé in `public`. `/resume.pdf` rewrites to the existing named PDF.
+- Navigation and the image dialog work by keyboard. Decorative motion respects reduced-motion preferences. Main content is server rendered and visible before JavaScript loads.
+
+## Contact email
+
+Set the following server-only variables in `.env.local` for local use or in the hosting environment:
+
+```text
+GMAIL_USER=your-sending-account@gmail.com
+GMAIL_APP_PASSWORD=your-app-password
 ```
 
-### Modifying Background
-```tsx
-<PrismaticBurst
-  intensity={1.2}        // Brightness (0.1 - 3.0)
-  speed={0.4}           // Animation speed (0.1 - 2.0)
-  animationType="rotate3d" // 'rotate' | 'rotate3d' | 'hover'
-  colors={['#00ffff', '#0080ff']} // Color palette
-  distort={3}           // Distortion level (0 - 10)
-  rayCount={12}         // Number of rays (0 - 50)
-/>
-```
+The configured account sends messages to `azrulaqim13@gmail.com`. The visitor's validated email is used for Reply-To. TLS certificate verification remains enabled. Never commit credentials.
 
-## 📱 Mobile Responsiveness
+`POST /api/contact` accepts JSON with `name` (1–100 characters), `email` (valid address, at most 254 characters), and `message` (1–5000 characters). Responses are 200 on success, 400 for invalid input, 413 for oversized payloads, 503 for missing email configuration, and 502 for delivery failure. The form preserves input after errors and always offers direct email contact.
 
-The portfolio is fully responsive with:
-- Mobile-first design approach
-- Touch-friendly navigation
-- Optimized performance on mobile devices
-- Accessible form controls
+## Hosting
 
-## 🎨 Color Scheme
-
-Primary colors used:
-- **Cyan**: `#00ffff` - Primary accent
-- **Purple**: `#8000ff` - Secondary accent  
-- **Blue variants**: `#0080ff`, `#0040ff`
-- **Background**: Black with transparency overlays
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
-```
-
-### Other Platforms
-The project can be deployed to any platform supporting Next.js:
-- Netlify
-- AWS Amplify
-- Railway
-- Heroku
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Feel free to submit issues and enhancement requests!
-
----
-
-**Made with ❤️ and lots of ☕**
+The repository's Netlify configuration builds the `frontend` directory. The contact route requires a Node.js server runtime; this is not a static export. Existing Vercel Analytics integration is retained. No deployment is performed by local build commands.

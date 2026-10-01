@@ -1,0 +1,85 @@
+<div id="collecting-navbar-preview">
+  <style>
+    #collecting-navbar-preview { --paper:light-dark(#f8f8f8,#181c18); --ink:light-dark(#242720,#eeeae3); --sage:light-dark(#748873,#a5b49e); --warm:light-dark(#e5e0d8,#2e352d); --muted:light-dark(#5c625a,#b7beb2); font-family:Arial,sans-serif; color:var(--ink); }
+    #collecting-navbar-preview * { box-sizing:border-box; }
+    #collecting-navbar-preview .stage { background:var(--paper); position:relative; overflow:hidden; border-radius:16px; min-height:440px; padding:24px; }
+    #collecting-navbar-preview .nav-wrap { height:82px; display:flex; justify-content:center; align-items:flex-start; position:relative; z-index:2; }
+    #collecting-navbar-preview .island { display:flex; align-items:center; justify-content:space-between; gap:18px; width:100%; max-width:580px; height:56px; padding:0 22px; border-radius:30px; color:#f8f8f8; background:#20231f; box-shadow:0 12px 26px #17211622; transition:width .7s cubic-bezier(.22,1,.36,1); }
+    #collecting-navbar-preview .island.small { width:236px; }
+    #collecting-navbar-preview .brand { font-size:24px; font-weight:700; letter-spacing:-1.5px; }
+    #collecting-navbar-preview .brand span { color:#c3d0bd; }
+    #collecting-navbar-preview .section-name { font-size:12px; white-space:nowrap; }
+    #collecting-navbar-preview .full-links { display:flex; gap:20px; font-size:12px; color:#d4d9d0; }
+    #collecting-navbar-preview .small .full-links { display:none; }
+    #collecting-navbar-preview .ring { width:20px; height:20px; border-radius:50%; position:relative; background:conic-gradient(#d1a980 var(--progress,0%),#ffffff26 0); flex-shrink:0; }
+    #collecting-navbar-preview .ring::after { content:''; position:absolute; inset:2.5px; border-radius:50%; background:#20231f; }
+    #collecting-navbar-preview .content { padding:30px 16px 24px; }
+    #collecting-navbar-preview .eyebrow { display:flex; align-items:center; gap:12px; font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); }
+    #collecting-navbar-preview .seed { width:9px; height:9px; border-radius:50%; background:var(--sage); display:inline-block; flex-shrink:0; }
+    #collecting-navbar-preview h2 { color:var(--ink); font:400 clamp(38px,7vw,64px)/1.08 Georgia,serif; letter-spacing:-.045em; margin:26px 0 20px; max-width:520px; }
+    #collecting-navbar-preview h2 em { color:var(--sage); font-weight:400; }
+    #collecting-navbar-preview .detail { color:var(--muted); font-size:14px; line-height:1.7; max-width:370px; margin:0; }
+    #collecting-navbar-preview .foot { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-top:32px; padding-top:18px; border-top:1px solid var(--warm); font-size:11px; color:var(--muted); }
+    #collecting-navbar-preview .collected { display:flex; gap:6px; }
+    #collecting-navbar-preview .collected span { width:6px; height:6px; border-radius:50%; background:var(--warm); }
+    #collecting-navbar-preview .collected span.done { background:var(--sage); }
+    #collecting-navbar-preview .particle { position:absolute; z-index:3; width:9px; height:9px; border-radius:50%; background:#d1a980; pointer-events:none; }
+    #collecting-navbar-preview .controls { display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding-top:14px; }
+    #collecting-navbar-preview button { font:400 12px Arial,sans-serif; min-height:44px; border:0; padding:0 15px; border-radius:24px; color:var(--ink); background:var(--warm); }
+    #collecting-navbar-preview button.play { background:var(--ink); color:var(--paper); margin-right:auto; }
+    #collecting-navbar-preview button[aria-pressed=true] { box-shadow:inset 0 0 0 1px var(--sage); }
+    @media(max-width:480px) { #collecting-navbar-preview .stage { padding:18px 12px; } #collecting-navbar-preview .full-links { display:none; } #collecting-navbar-preview .content { padding:25px 10px 16px; } #collecting-navbar-preview .controls { gap:5px; } #collecting-navbar-preview button { padding-inline:12px; } }
+    @media(prefers-reduced-motion:reduce) { #collecting-navbar-preview * { transition:none!important; } }
+  </style>
+  <div class="stage" aria-label="Portfolio motion preview">
+    <div class="nav-wrap"><div class="island"><span class="brand">azrul<span>.</span></span><div class="full-links"><span>Work</span><span>About</span><span>Services</span></div><span class="section-name">Overview</span><span class="ring" aria-hidden="true"></span></div></div>
+    <div class="content"><div class="eyebrow"><span class="seed"></span><span class="chapter">A portfolio by Azrul</span></div><h2>Useful by design.<br><em>Thoughtful by detail.</em></h2><p class="detail">Thoughtful websites and app interfaces, built with care.</p><div class="foot"><span class="status" aria-live="polite">Your journey begins</span><span class="collected" aria-hidden="true"><span></span><span></span><span></span><span></span></span></div></div>
+  </div>
+  <div class="controls" aria-label="Preview controls"><button class="play cursor-interaction" type="button">Play journey</button><button class="cursor-interaction" type="button" data-step="1" aria-pressed="false">Work</button><button class="cursor-interaction" type="button" data-step="2" aria-pressed="false">About</button><button class="cursor-interaction" type="button" data-step="3" aria-pressed="false">Services</button><button class="cursor-interaction" type="button" data-step="4" aria-pressed="false">Contact</button></div>
+  <script>
+  (() => {
+    const root=document.getElementById('collecting-navbar-preview');
+    const q=s=>root.querySelector(s);
+    const stage=q('.stage'), island=q('.island'), ring=q('.ring'), content=q('.content'), play=q('.play');
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    const scenes=[
+      ['Overview','A portfolio by Azrul','Useful by design.<br><em>Thoughtful by detail.</em>','Thoughtful websites and app interfaces, built with care.'],
+      ['Work','01 / Selected work','Made to work.<br><em>Built to matter.</em>','RANACO — a clearer digital experience for education.'],
+      ['About','02 / A little about me','A thoughtful eye.<br><em>A practical mind.</em>','Frontend developer based in Terengganu, Malaysia.'],
+      ['Services','03 / What I can help with','From first idea<br><em>to final detail.</em>','Responsive websites, app interfaces, and the details in between.'],
+      ['Contact','04 / Start a conversation','Something in mind?<br><em>Let’s build it.</em>','azrulaqim13@gmail.com']
+    ];
+    let step=0, timers=[], animations=[], running=false;
+    function clear(){timers.forEach(clearTimeout);timers=[];animations.forEach(a=>a.cancel());animations=[];root.querySelectorAll('.particle').forEach(p=>p.remove());}
+    function later(fn,ms){timers.push(setTimeout(fn,ms));}
+    function remember(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{preview:'collecting navbar',section:scenes[step][0]},privateContent:{step}}).catch(()=>{});}
+    function paint(n){
+      step=n;const s=scenes[n];island.classList.toggle('small',n>0);q('.section-name').textContent=s[0];q('.chapter').textContent=s[1];q('h2').innerHTML=s[2];q('.detail').textContent=s[3];
+      ring.style.setProperty('--progress',`${n*25}%`);
+      q('.status').textContent=n===0?'Your journey begins':n===4?'Journey complete':`${n} of 4 sections collected`;
+      root.querySelectorAll('.collected span').forEach((el,i)=>el.classList.toggle('done',i<n));
+      root.querySelectorAll('[data-step]').forEach(el=>el.setAttribute('aria-pressed',String(Number(el.dataset.step)===n)));
+    }
+    function arrive(n){
+      if(reduced.matches){paint(n);return;}
+      const r=stage.getBoundingClientRect(),a=q('.seed').getBoundingClientRect(),b=ring.getBoundingClientRect();
+      const p=document.createElement('span');p.className='particle';p.style.left=`${a.left-r.left}px`;p.style.top=`${a.top-r.top}px`;stage.append(p);
+      const dx=b.left+b.width/2-a.left-4.5,dy=b.top+b.height/2-a.top-4.5;
+      animations.push(p.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${dx*.25}px,${dy*.7}px) scale(.85)`,opacity:1,offset:.48},{transform:`translate(${dx}px,${dy}px) scale(.3)`,opacity:.2}],{duration:720,easing:'cubic-bezier(.45,0,.25,1)',fill:'forwards'}));
+      later(()=>{p.remove();paint(n);animations.push(island.animate([{transform:'scale(1)'},{transform:'scale(1.065,.94)',offset:.35},{transform:'scale(.985,1.02)',offset:.7},{transform:'scale(1)'}],{duration:480,easing:'ease-out'}));animations.push(content.animate([{opacity:.25,transform:'translateY(16px)'},{opacity:1,transform:'translateY(0)'}],{duration:500,easing:'ease-out'}));},720);
+    }
+    function stop(){clear();running=false;play.textContent='Replay journey';}
+    play.addEventListener('click',()=>{
+      if(running){stop();remember();return;}
+      clear();paint(0);running=true;play.textContent='Pause';
+      later(()=>island.classList.add('small'),500);
+      for(let n=1;n<=4;n++)later(()=>arrive(n),1000+(n-1)*2100);
+      later(()=>{running=false;play.textContent='Replay journey';remember();},8200);
+    });
+    root.querySelectorAll('[data-step]').forEach(button=>button.addEventListener('click',()=>{stop();const n=Number(button.dataset.step);paint(Math.max(0,n-1));island.classList.add('small');later(()=>arrive(n),600);later(remember,1400);}));
+    function restore(state){const n=state?.privateContent?.step;if(Number.isInteger(n)&&n>=0&&n<=4){stop();paint(n);}}
+    restore(window.openai?.widgetState);
+    window.addEventListener('openai:set_globals',event=>{if(event.detail?.globals?.widgetState)restore(event.detail.globals.widgetState);});
+  })();
+  </script>
+</div>
