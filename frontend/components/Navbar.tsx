@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 
-const items = [{ id: 'works', label: 'Work' }, { id: 'about', label: 'About' }, { id: 'services', label: 'Services' }, { id: 'contact', label: 'Contact' }];
+const items = [{ id: 'about', label: 'About' }, { id: 'works', label: 'Work' }, { id: 'services', label: 'Services' }, { id: 'contact', label: 'Contact' }];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -24,9 +24,15 @@ export default function Navbar() {
       header.current?.style.setProperty('--scroll-progress', `${distance > 0 ? Math.min(1, y / distance) * 100 : 0}%`);
       if (isHome) {
         let current = 'home';
+        let closestTop = -Infinity;
         for (const item of items) {
           const section = document.getElementById(item.id);
-          if (section && section.getBoundingClientRect().top <= window.innerHeight * .35) current = item.id;
+          if (!section) continue;
+          const top = section.getBoundingClientRect().top;
+          if (top <= window.innerHeight * .35 && top > closestTop) {
+            current = item.id;
+            closestTop = top;
+          }
         }
         setActive(current);
       }
@@ -35,7 +41,11 @@ export default function Navbar() {
     update();
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule);
+    const observer = new ResizeObserver(schedule);
+    const main = document.getElementById('main-content');
+    if (main) observer.observe(main);
     return () => {
+      observer.disconnect();
       window.cancelAnimationFrame(frame);
       window.removeEventListener('scroll', schedule);
       window.removeEventListener('resize', schedule);
