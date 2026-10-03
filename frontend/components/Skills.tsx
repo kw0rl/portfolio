@@ -1,34 +1,15 @@
-import { Braces, ChevronDown, CodeXml, Database, Layers, Plug, Sparkles, Wrench } from 'lucide-react';
-
-const mainSkills = [
-  { title: 'Frontend', icon: Layers, description: 'The building blocks for responsive websites and thoughtful app interfaces.', items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Flutter'] },
-  { title: 'Backend & Data', icon: Database, description: 'Tools for application logic, server-side features, and structured data.', items: ['Node.js', 'Express.js', 'PHP', 'Laravel', 'MySQL'] },
-  { title: 'Development Tools', icon: Wrench, description: 'Supporting the workflow, from version control to testing and publishing.', items: ['Git', 'GitHub', 'Postman', 'Vite', 'WordPress'] },
+import { ChevronDown } from 'lucide-react';
+const groups = [
+  { title: 'Interfaces', items: ['JavaScript', 'TypeScript', 'React', 'Next.js', 'Tailwind CSS', 'Flutter'] },
+  { title: 'Backend & data', items: ['Node.js', 'Express.js', 'PHP', 'Laravel', 'MySQL'] },
+  { title: 'Development tools', items: ['Git', 'GitHub', 'Postman', 'Vite', 'WordPress'] },
 ];
-const additionalSkills = [
-  { title: 'Other Languages', icon: CodeXml, items: ['C++', 'Java', 'Python'] },
-  { title: 'API Integrations', icon: Plug, items: ['REST APIs', 'Google Cloud Vision API', 'Spotify API', 'Mailtrap API'] },
-  { title: 'AI-assisted Tools', icon: Sparkles, items: ['Cursor', 'Codex'] },
+const additional = [
+  { title: 'Other languages', items: ['C++', 'Java', 'Python'] },
+  { title: 'API integrations', items: ['REST APIs', 'Google Cloud Vision API', 'Spotify API', 'Mailtrap API'] },
+  { title: 'AI-assisted tools', items: ['Cursor', 'Codex'] },
 ];
-
-function SkillLabels({ items }: { items: string[] }) {
-  return <ul className="skill-labels">{items.map(item => <li key={item}>{item}</li>)}</ul>;
-}
-
+function Rows({ items }: { items: typeof groups }) { return <dl className="toolkit-rows">{items.map(group => <div key={group.title}><dt>{group.title}</dt><dd><ul>{group.items.map(item => <li key={item}>{item}</li>)}</ul></dd></div>)}</dl>; }
 export default function Skills() {
-  return <section className="skills-section" aria-labelledby="skills-heading">
-    <div className="skills-heading"><div><p className="eyebrow">My toolkit</p><h3 id="skills-heading">The tools behind<br /><em>the work.</em></h3></div><p>From the interface to the supporting pieces, a toolkit for bringing ideas to the web.</p></div>
-    <div className="skills-grid">
-      {mainSkills.map(({ title, icon: Icon, description, items }, index) => <article className={`skill-card${index === 0 ? ' skill-card-featured' : ''}`} key={title}>
-        <div className="skill-card-top"><span className="skill-icon"><Icon size={23} strokeWidth={1.5} aria-hidden="true" /></span><span className="skill-number" aria-hidden="true">0{index + 1}</span></div>
-        <div className="skill-card-copy"><h4>{title}</h4><p>{description}</p></div>
-        <SkillLabels items={items} />
-        {index === 0 && <div className="skill-card-footnote"><Braces size={17} aria-hidden="true" /><span>Structure. Style. Interaction.</span></div>}
-      </article>)}
-    </div>
-    <details className="skills-more">
-      <summary><span>More tools &amp; languages</span><ChevronDown className="skills-chevron" size={19} aria-hidden="true" /></summary>
-      <div className="skills-additional">{additionalSkills.map(({ title, icon: Icon, items }) => <div className="skill-group" key={title}><h4><Icon size={18} strokeWidth={1.5} aria-hidden="true" />{title}</h4><SkillLabels items={items} /></div>)}</div>
-    </details>
-  </section>;
+  return <section className="about-toolkit" aria-labelledby="toolkit-heading"><div className="about-section-label"><span className="eyebrow">The toolkit</span><h2 id="toolkit-heading">What I work with.</h2></div><div><Rows items={groups} /><details className="skills-more"><summary>More tools &amp; languages <ChevronDown size={18} aria-hidden="true" /></summary><Rows items={additional} /></details></div></section>;
 }

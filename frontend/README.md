@@ -1,6 +1,6 @@
 # Azrul — Frontend portfolio
 
-A light editorial portfolio built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. The homepage introduces Azrul, features Ranaco, and presents background, services, and a contact form. `/work/ranaco` contains the project case study.
+A project-index portfolio built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. The homepage pairs an identity column with Ranaco and Product Catalog, followed by contact. Background, capabilities, and toolkit live at `/about`; project pages remain at `/work/ranaco` and `/work/product-catalog`. The dynamic island navigation uses native scrolling.
 
 ## Run locally
 
@@ -26,9 +26,9 @@ Contact tests use mocked delivery and never send email. After a production build
 
 ## Content and design
 
-- `lib/content.ts` contains the public profile, contact recipient, and Ranaco project details.
-- `app/globals.css` contains the editorial layout and palette: sage, tan, warm gray, off-white, and charcoal.
-- DM Serif Display and Manrope are loaded with `next/font/google`; building requires access to Google Fonts.
+- `lib/content.ts` contains the public profile, contact recipient, and Ranaco project details. `lib/product-catalog.ts` contains the Flutter project screenshots, GitHub link, and versioned GitHub Releases APK link.
+- `app/globals.css` contains the responsive layouts and palette: slate (#3A405A), blue (#AEC5EB), peach (#F9DEC9), rose (#E9AFA3), and brown (#685044).
+- DM Serif Display and Manrope are temporary font choices until the next typography selection; they are loaded with `next/font/google`; building requires access to Google Fonts.
 - Keep the portrait, two Ranaco screenshots, and résumé in `public`. `/resume.pdf` rewrites to the existing named PDF.
 - Navigation and the image dialog work by keyboard. Decorative motion respects reduced-motion preferences. Main content is server rendered and visible before JavaScript loads.
 
