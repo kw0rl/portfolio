@@ -7,9 +7,9 @@ import Footer from '@/components/Footer';
 import { productCatalog } from '@/lib/product-catalog';
 import { CatalogWalkthrough } from '@/components/CaseInteractions';
 export const metadata: Metadata = {
-  title: 'Product Catalog — Selected work', description: productCatalog.description,
+  title: 'Product Catalog | Selected work', description: productCatalog.description,
   alternates: { canonical: '/work/product-catalog' },
-  openGraph: { title: 'Product Catalog — Azrul Mustaqqim', description: productCatalog.description, url: '/work/product-catalog', images: ['/opengraph-image'] },
+  openGraph: { title: 'Product Catalog | Azrul Mustaqqim', description: productCatalog.description, url: '/work/product-catalog', images: ['/opengraph-image'] },
 };
 
 

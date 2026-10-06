@@ -6,9 +6,9 @@ import Footer from '@/components/Footer';
 import { ranaco } from '@/lib/content';
 import { RanacoShowcase } from '@/components/CaseInteractions';
 export const metadata: Metadata = {
-  title: 'Ranaco programmes — Selected work', description: ranaco.description,
+  title: 'Ranaco programmes | Selected work', description: ranaco.description,
   alternates: { canonical: '/work/ranaco' },
-  openGraph: { title: 'Ranaco programmes — Azrul Mustaqqim', description: ranaco.description, url: '/work/ranaco', images: ['/opengraph-image'] },
+  openGraph: { title: 'Ranaco programmes | Azrul Mustaqqim', description: ranaco.description, url: '/work/ranaco', images: ['/opengraph-image'] },
 };
 
 
